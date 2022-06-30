@@ -1,0 +1,50 @@
+// Используемые шрифты
+$font-Default            : sans-serif;
+$font-RobotoSlab           : 'Roboto Slab', serif;
+$font-OpenSans           : 'Open Sans', sans-serif;
+
+// Характеристики шрифтов
+$mainFontSize            : 18px;
+$mainFontWeight          : 400;
+$mainLineHeight          : 1.4;
+
+// Размеры
+$lgDesktopWidth          : 1400px;
+$desktopWidth            : 1280px;
+$smDesktopWidth          : 1024px;
+$tableWidth              : 768px;
+$smTableWidth            : 640px;
+$phoneWidth              : 480px;
+$smPhoneWidth            : 320px;
+
+// Цвета
+// ===================================
+
+// Основной фоновый цвет
+$mainBackgroundColor     : #2D2D2D;
+
+// Основной цвет шрифта
+$mainFontColor           : #101010;
+
+// Основные цвета
+$default-color           : #ffffff;
+$primary-color           : #4468e0;
+$success-color           : #26de81;
+$danger-color            : #fc5c65;
+$warning-color           : #fed330;
+$light-color             : #999999;
+$purple-color            : #8854d0;
+$purple-color-100        : #aa8ad6;
+
+// Нейтралные цвета
+$neutral-primary         : #303133;
+$neutral-regular         : #606266;
+$neutral-secondary       : #909399;
+$neutral-placeholder     : #C0C4CC;
+
+// Цвета рамок
+$border-base             : #DCDFE6;
+$border-light            : #E4E7ED;
+$border-lighter          : #EBEEF5;
+$border-lightex          : #F2F6FC;
+
