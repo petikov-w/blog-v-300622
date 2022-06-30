@@ -4,6 +4,7 @@ const routerHistory = createWebHistory();
 
 import HomePage from "@/pages/HomePage";
 import notFoundPage from "@/pages/NotFoundPage";
+import Item from "@/pages/_itemAlias"
 // import ThankYouPage from "@/pages/ThankYouPage";
 // import AdminPage from "@/pages/AdminPage";
 // import {site} from "@/_config";
@@ -19,6 +20,14 @@ const routers = createRouter(
                 component: HomePage,
                 meta: {
                     title: "Главная"
+                }
+            },
+            {
+                path: "/:itemAlias",
+                name: "itemAlias",
+                component: Item,
+                meta: {
+                    title: null
                 }
             },
             // {

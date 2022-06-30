@@ -1,0 +1,47 @@
+.card-box {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px;
+}
+
+.card {
+  //border: 1px solid #000000;
+  padding: 20px 30px;
+  margin-right: 20px;
+  width: 350px;
+  margin-top: 20px;
+  background-color: #DCDFE6;
+  box-shadow: 4px 4px 8px 0 rgba(34, 60, 80, 0.2);
+  border-radius: 10px;
+  &:hover {
+    box-shadow: 0 0 0 0 rgba(34, 60, 80, 0.2);
+  }
+  .title {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    font-family: $font-RobotoSlab;
+    @include font(26px, 800, 30px, #000000)
+  }
+  .body {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100px;
+  }
+  a {
+    color: #4468e0;
+    &:hover {
+      border-bottom: 1px solid #4468e0;
+      padding-bottom: 3px;
+    }
+  }
+}
+
+
+
+
+
+
+
