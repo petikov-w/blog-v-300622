@@ -1,14 +1,16 @@
 .card-box {
   display: flex;
   flex-wrap: wrap;
-  margin: 20px;
+  &:not(:last-child) {
+    margin-right: 20px;
+  }
 }
 
 .card {
   //border: 1px solid #000000;
   padding: 20px 30px;
   margin-right: 20px;
-  width: 350px;
+  width: 330px;
   margin-top: 20px;
   background-color: #DCDFE6;
   box-shadow: 4px 4px 8px 0 rgba(34, 60, 80, 0.2);

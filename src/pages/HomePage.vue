@@ -5,9 +5,7 @@
       .card
         .title {{ value.title }}
         .body {{ secWord(value.body,12) }}
-        //a(:href=`link(value.id)`) Подробнее
-        //router-link(:to='link(value.id)') Подробнее...
-        router-link(:to='"http://api.blog.loc/posts"+"/"+value.id') Подробнее...
+        router-link(:to='value.id') Подробнее...
 //const sss = `http://api.blog.loc/posts/${post.id}`;
 </template>
 
@@ -23,7 +21,6 @@ export default {
   },
   created() {
     axios
-        //.get('https://jsonplaceholder.typicode.com/posts')
         .get('http://api.blog.loc/posts')
         .then(responce => {this.posts = responce.data
               console.log(responce)

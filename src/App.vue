@@ -1,4 +1,5 @@
 <template lang="pug">
+Header
 div
  router-view
 

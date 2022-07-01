@@ -1,5 +1,6 @@
 <template lang="pug">
 .header-wrapper
+  h1 Лого
   //img(:src='$store.state.contentHeader.logo' alt="logo")
     //.info
     //  span {{ $store.state.contentHeader.subtitle }}

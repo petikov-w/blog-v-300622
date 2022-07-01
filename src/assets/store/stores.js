@@ -5,7 +5,7 @@ export default createStore({
         state: function () {
             const telefon = ref("79094282452");
             const contentHeader=  {
-                logo: require('@/assets/images/logo.png'),
+                logo: require('@/assets/images/logo-2.jpg'),
                 telefon: telefon.value,
                 subtitle: "Срочный вопрос"
             }
