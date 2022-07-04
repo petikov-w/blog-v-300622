@@ -1,6 +1,6 @@
 import {createStore} from "vuex";
 import axios from "axios";
-
+const api = 'http://api.blog.loc';
 export default createStore({
 //==========================================================================
     state: {
@@ -11,6 +11,7 @@ export default createStore({
     },
     getters: {
         getPosts: (state) => state.posts,
+        getPost: (state) => state.post,
         getTelefon: (state) => state.settings.telefon,
         getTitle: (state) => state.settings.title,
         getLogo: (state) => state.logo
@@ -18,19 +19,23 @@ export default createStore({
     mutations: {
         setPosts(state, posts) { state.posts = posts },
         setPost(state, post) { state.post = post },
-        setSettings(state, settings) {state.settings = settings; console.log('>>> 00 >>>  ',settings)}
+        setSettings(state, settings) {state.settings = settings}
     },
     actions: {
         setPosts : ({commit}) => {
-            axios.get('http://api.blog.loc/posts')
+            // axios.get('http://api.blog.loc/posts')
+            axios.get(`${api}/posts`)
                 .then(responce => {commit('setPosts', responce.data)})
             },
-        setPost : ({commit, id}) => {
-            axios.get('http://api.blog.loc/posts/'+id)
+        // eslint-disable-next-line no-unused-vars
+        setPost : ({commit}, id) => {
+            // axios.get(`http://api.blog.loc/posts/${id}`)
+            axios.get(`${api}/posts/${id}`)
                 .then(responce => {commit('setPost', responce.data)})
         },
         setSettings : ({commit}) => {
-            axios.get('http://api.blog.loc/settings')
+            // axios.get('http://api.blog.loc/settings')
+            axios.get(`${api}/settings`)
                 .then(responce => {commit('setSettings', responce.data)})
         }
     }

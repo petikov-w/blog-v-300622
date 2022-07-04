@@ -6,12 +6,9 @@
         .title {{ value.title }}
         .body {{ secWord(value.body,12) }}
         router-link(:to='value.id') Подробнее...
-
-//const sss = `http://api.blog.loc/posts/${post.id}`;
 </template>
 
 <script>
-// import axios from 'axios';
 import {useStore} from 'vuex'
 import {computed} from "vue";
 
@@ -21,7 +18,6 @@ export default {
 //------------------------------------
       const store = useStore();
       store.dispatch('setPosts');
-      // const title = computed(() => store.getters.getTelefon);
       const posts = computed(() => store.getters.getPosts);
       const secWord = (str, count) => {
           const adis = str.split(" ");

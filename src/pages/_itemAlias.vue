@@ -8,11 +8,8 @@
 </template>
 
 <script>
-// import axios from "axios";
-// import {useStore} from "vuex";
-// import {computed} from "vue/dist/vue";
-
 import {useStore} from 'vuex'
+import {useRoute} from 'vue-router';
 import {computed} from "vue";
 
 export default {
@@ -20,30 +17,13 @@ export default {
   setup(){
 //------------------------------------
     const store = useStore();
-    console.log('========>>>>>>>>>>  ',this.$route.fullPath)
-    store.dispatch('setPost', this.$route.fullPath);
+    const route = useRoute();
+    store.dispatch('setPost', route.fullPath);
     const post = computed(() => store.getters.getPost);
+    console.log(' >> 3 >> ', post)
 //------------------------------------
     return {post}
   }
-
-  // data() {
-  //   return {
-  //     item: null,
-  //     posts: [],
-  //     errors: []
-  //   }
-  // },
-  // created() {
-  //   this.item = "http://api.blog.loc/posts" + this.$route.fullPath;
-  //   axios
-  //       .get(this.item)
-  //       .then(responce => {this.posts = responce.data
-  //         console.log(responce)
-  //         console.log(this.posts)}
-  //       )
-  //       .catch(e => {this.errors.push(e)})
-  // },
 }
 </script>
 
