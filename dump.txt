@@ -1,0 +1,1 @@
+mysqldump -uroot -p api_tester > api_tester(040722).sql

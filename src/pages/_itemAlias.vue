@@ -2,33 +2,48 @@
 //- var s_center="text-align: center;";
 .wrapper
   .post-content
-    .post-title {{ posts.title }}
-    p {{ posts.body }}
+    .post-title {{ post.title }}
+    p {{ post.body }}
     router-link(to="/" class="link-go-main-page") Вернуться на главную
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
+// import {useStore} from "vuex";
+// import {computed} from "vue/dist/vue";
+
+import {useStore} from 'vuex'
+import {computed} from "vue";
+
 export default {
   name: "_itemAlias",
-  data() {
-    return {
-      item: null,
-      posts: [],
-      errors: []
-    }
-  },
-  created() {
-    this.item = "http://api.blog.loc/posts" + this.$route.fullPath;
-    axios
-        .get(this.item)
-        .then(responce => {this.posts = responce.data
-          console.log(responce)
-          console.log(this.posts)}
-        )
-        .catch(e => {this.errors.push(e)})
-  },
+  setup(){
+//------------------------------------
+    const store = useStore();
+    console.log('========>>>>>>>>>>  ',this.$route.fullPath)
+    store.dispatch('setPost', this.$route.fullPath);
+    const post = computed(() => store.getters.getPost);
+//------------------------------------
+    return {post}
+  }
 
+  // data() {
+  //   return {
+  //     item: null,
+  //     posts: [],
+  //     errors: []
+  //   }
+  // },
+  // created() {
+  //   this.item = "http://api.blog.loc/posts" + this.$route.fullPath;
+  //   axios
+  //       .get(this.item)
+  //       .then(responce => {this.posts = responce.data
+  //         console.log(responce)
+  //         console.log(this.posts)}
+  //       )
+  //       .catch(e => {this.errors.push(e)})
+  // },
 }
 </script>
 
