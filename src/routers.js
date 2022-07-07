@@ -5,9 +5,8 @@ const routerHistory = createWebHistory();
 import HomePage from "@/pages/HomePage";
 import notFoundPage from "@/pages/NotFoundPage";
 import Item from "@/pages/_itemAlias"
-// import ThankYouPage from "@/pages/ThankYouPage";
-// import AdminPage from "@/pages/AdminPage";
-// import {site} from "@/_config";
+import AdminPage from "@/pages/AdminPage";
+
 const site = "Блог";
 
 const routers = createRouter(
@@ -30,22 +29,14 @@ const routers = createRouter(
                     title: null
                 }
             },
-            // {
-            //     path: "/admin",
-            //     name: "admin",
-            //     component: AdminPage,
-            //     meta: {
-            //         title: "Панель администратора"
-            //     }
-            // },
-            // {
-            //     path: "/thankyou",
-            //     name: "thankyou",
-            //     component: ThankYouPage,
-            //     meta: {
-            //         title: "Страница благодарности"
-            //     }
-            // },
+            {
+                path: "/admin",
+                name: "admin",
+                component: AdminPage,
+                meta: {
+                    title: "Панель администратора"
+                }
+            },
             {
                 path: "/:CatchAll(.*)",
                 name: "404",

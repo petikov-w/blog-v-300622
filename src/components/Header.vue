@@ -1,8 +1,9 @@
 <template lang="pug">
 .header-wrapper
-  .logo
-    img(:src='logo' width="60" height="60"  alt="logo")
-    .site {{ title_site }}
+  router-link(:to="{ name: 'home'}")
+    .logo
+      img(:src='logo' width="60" height="60"  alt="logo")
+      .site {{ title_site }}
   .info
     Telefon(:tel='telefon')
 </template>

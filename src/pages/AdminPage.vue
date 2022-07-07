@@ -4,22 +4,28 @@
   .telefon
     label(for="a-telefon") Телефон в шапке сайта
     input(name="a-telefon" id="a-telefon" required=true placeholder="телефон")
-    h2 {{ $store.state.telefon }}
+    h2 {{ telefon }}
   .saved
     button(@click="handleSave") Сохранить
 .footer-admin
-  span(@click="back_to_main") Вернуться на главную
+  //span(@click="back_to_main") Вернуться на главную
+  router-link(:to="{ name: 'home'}") Вернуться на главную
 </template>
 
 <script>
-import $router from "@/routes";
+// import $router from "@/routers";
+import {useStore} from 'vuex'
+import {computed} from "vue";
 
 export default {
   name: "AdminPage",
   setup() {
-    const back_to_main = () => {$router.push('/')};
-    const handleSave = () => {this.$store.dispatch('setTelefon')};
-    return {back_to_main, handleSave}
+    const store = useStore();
+    store.dispatch('setSettings');
+    const telefon = computed(() => store.getters.getTelefon);
+    const handleSave = () => {};
+
+    return {telefon, handleSave }
   }
 }
 </script>
@@ -27,8 +33,8 @@ export default {
 <style lang="scss" scoped>
 ::placeholder {
   text-transform: uppercase;
-  font-family: $font-OpenSans;
-  @include font(16px, 400, 20px, #2D2D2D80);
+  font-family: $font-RobotoSlab;
+  @include font(16px, 700, 20px, #2D2D2D80);
 }
 
 .footer-admin {
@@ -40,7 +46,7 @@ export default {
     width: auto;
     text-decoration: underline;
     cursor: pointer;
-    font-family: $font-OpenSans;
+    //font-family: $font-OpenSans;
     @include font(14px, 400, 20px, #ffffff);
     &:hover {
       opacity: 0.3;
@@ -58,17 +64,19 @@ export default {
   height: 78vh;
 
   .title-panel {
-    font-family: $font-RussoOne;
+    font-family: $font-RobotoSlab;
     @include font(25px, 400, 30px, #EF6D00);
     margin: 25px 0;
   }
   .telefon {
-    font-family: $font-OpenSans;
+    //font-family: $font-OpenSans;
     @include font(20px, 400, 30px, #ffffff);
    label {
       margin-right: 20px!important;
+      color: #303133;
     }
    input {
+     border-color: #303133;
      border-radius: 7px;
      padding-left: 15px;
    }
@@ -87,7 +95,13 @@ export default {
       border: 3px solid #EF6D00;
     }
   }
+}
+a {
+  color: #4468e0;
 
-
+  &:hover {
+    border-bottom: 1px solid #4468e0;
+    padding-bottom: 3px;
+  }
 }
 </style>

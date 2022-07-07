@@ -1,6 +1,7 @@
 import {createStore} from "vuex";
 import axios from "axios";
-const api = 'http://api.blog.loc';
+// const api = 'http://api.blog.loc'; // локальный сервер
+const api = 'https://api.blog.kroxdev.ru'; // хостинг
 export default createStore({
 //==========================================================================
     state: {
