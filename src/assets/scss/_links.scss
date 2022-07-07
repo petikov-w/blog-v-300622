@@ -1,0 +1,18 @@
+.link-go {
+  color: #4468e0;
+  &:hover {
+    width: max-content;
+    border-bottom: 1px solid #4468e0;
+    padding-bottom: 3px;
+  }
+}
+
+.link-go-admin {
+  color: #126b05;
+  font-weight: 600;
+  &:hover {
+    width: max-content;
+    border-bottom: 2px solid red;
+    padding-bottom: 3px;
+  }
+}

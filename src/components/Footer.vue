@@ -1,17 +1,22 @@
 <template lang="pug">
 footer.footer
   .footer-wrapper
-    span Политика конфиденциальности
-    span Согласие на обработку персональных данных
+    router-link(v-if="isHome" :to="{ name: 'home'}" class="link-go") Вернуться на главную
+    router-link(v-if="isAdmin" :to="{ name: 'admin'}" class="link-go-admin") Панель администратора
 
 </template>
 
 <script>
+import {useRoute} from 'vue-router';
+import {computed} from "vue";
 
 export default {
   name: 'Footer-m',
   setup() {
-    return { }
+    const route = useRoute();
+    const isAdmin = computed(() => route.name==='admin' ? false : true);
+    const isHome = computed(() => route.name==='home' ? false : true);
+    return { isAdmin, isHome}
   }
 }
 </script>
@@ -21,19 +26,11 @@ export default {
   width: 1100px;
   margin: 0 auto;
   display: flex;
-  margin-top: -40px; // <<------------------ мобил убрать
-  @media screen and (max-width: $phoneWidth) {
-    margin-top: -40px;
-    flex-direction: column;
-  }
   span {
     font-family: 'Open Sans', sans-serif;
     @include font(14px, 400, 19px, #f1f1f1);
     text-decoration: underline;
     margin-right: 30px;
-    @media screen and (max-width: $phoneWidth) {
-      margin-bottom: 10px;
-    }
   }
 }
 </style>

@@ -61,7 +61,7 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   margin: 25px 0;
-  height: 78vh;
+  //height: 78vh;
 
   .title-panel {
     font-family: $font-RobotoSlab;

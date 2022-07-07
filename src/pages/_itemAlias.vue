@@ -1,10 +1,9 @@
 <template lang="pug">
-//- var s_center="text-align: center;";
 .wrapper
   .post-content
     .post-title {{ post.title }}
     p {{ post.body }}
-    router-link(to="/" class="link-go-main-page") Вернуться на главную
+    router-link(:to="{ name: 'home'}" class="link-go") Вернуться на главную
 </template>
 
 <script>
@@ -20,7 +19,7 @@ export default {
     const route = useRoute();
     store.dispatch('setPost', route.fullPath);
     const post = computed(() => store.getters.getPost);
-    console.log(' >> 3 >> ', post)
+    // console.log(' >> 3 >> ', post)
 //------------------------------------
     return {post}
   }
@@ -40,14 +39,6 @@ export default {
   p {
     max-width: 60vw;
     margin-bottom: 30px;
-  }
-  .link-go-main-page {
-    color: #4468e0;
-    &:hover {
-      width: max-content;
-      border-bottom: 1px solid #4468e0;
-      padding-bottom: 3px;
-    }
   }
 }
 
