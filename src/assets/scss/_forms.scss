@@ -1,0 +1,67 @@
+::placeholder {
+  text-transform: uppercase;
+  font-family: $font-OpenSans;
+  @include font(12px, 400, 16px, #2D2D2D80);
+}
+
+input {
+  width: 400px;
+  height: 50px;
+  border: 1px solid #2D2D2D;
+  border-radius: 10px;
+  padding: 10px 10px;
+  margin: 5px 17px 25px;
+  color: #EF5221;
+}
+.note-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 15px;
+}
+
+//.note-form {
+//  display: flex;
+//  flex-direction: column;
+//  align-items: center;
+//  padding: 15px;
+//  img {
+//    width: 85%;
+//    margin-bottom: 25px;
+//    margin-top: 15px;
+//  }
+//  input {
+//    width: 400px;
+//    height: 50px;
+//    border-radius: 10px;
+//    padding: 10px 10px;
+//    margin: 5px 17px 25px;
+//    color: #EF5221;
+//    @media screen and (max-width: $phoneWidth) {
+//      width: 330px;
+//    }
+//  }
+//}
+
+//.header-title {
+//  display: flex;
+//  justify-content: space-between;
+//  width: 380px;
+//  @media screen and (max-width: $phoneWidth) {
+//    width: 330px;
+//  }
+//
+//  .form-title {
+//    font-family: $font-RussoOne;
+//    @include font(20px, 400, 24px, #EF5221);
+//    letter-spacing: 1.1px;
+//    text-transform: uppercase;
+//    max-width: 280px;
+//    margin: 10px 0 25px 0;
+//  }
+//  .close-form {
+//    @include font(34px, 500, 42px, #EF5221);
+//    cursor: pointer;
+//  }
+//}
+

@@ -3,7 +3,7 @@
   .post-content
     .post-title {{ post.title }}
     p {{ post.body }}
-    router-link(:to="{ name: 'home'}" class="link-go") Вернуться на главную
+    //router-link(:to="{ name: 'home'}" class="link-go") Вернуться на главную
 </template>
 
 <script>
@@ -12,7 +12,7 @@ import {useRoute} from 'vue-router';
 import {computed} from "vue";
 
 export default {
-  name: "_itemAlias",
+  name: "itemPost",
   setup(){
 //------------------------------------
     const store = useStore();
