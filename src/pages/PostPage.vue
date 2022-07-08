@@ -3,13 +3,12 @@
   .post-content
     .post-title {{ post.title }}
     p {{ post.body }}
-    //router-link(:to="{ name: 'home'}" class="link-go") Вернуться на главную
 </template>
 
 <script>
 import {useStore} from 'vuex'
 import {useRoute} from 'vue-router';
-import {computed} from "vue";
+import {ref, computed} from "vue";
 
 export default {
   name: "itemPost",
@@ -18,8 +17,14 @@ export default {
     const store = useStore();
     const route = useRoute();
     store.dispatch('setPost', route.fullPath);
-    const post = computed(() => store.getters.getPost);
-    // console.log(' >> 3 >> ', post)
+    let post = ref("");
+    post = computed(() => store.getters.getPost);
+
+
+
+
+
+
 //------------------------------------
     return {post}
   }
@@ -27,6 +32,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+[v-cloak] {
+  display: none;
+}
+
 .post-content {
   display: flex;
   flex-direction: column;
