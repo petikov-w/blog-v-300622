@@ -1,7 +1,7 @@
 import {createStore} from "vuex";
 import axios from "axios";
-// const api = 'http://api.blog.loc'; // локальный сервер
-const api = 'https://api.blog.kroxdev.ru'; // хостинг
+const api = 'http://api.blog.loc'; // локальный сервер
+// const api = 'https://api.blog.kroxdev.ru'; // хостинг
 export default createStore({
 //==========================================================================
     state: {
@@ -14,6 +14,7 @@ export default createStore({
         getPosts: (state) => state.posts,
         getPost: (state) => state.post,
         getTelefon: (state) => state.settings.telefon,
+        getEmail: (state) => state.settings.mail,
         getTitle: (state) => state.settings.title,
         getLogo: (state) => state.logo
     },
@@ -24,20 +25,18 @@ export default createStore({
     },
     actions: {
         setPosts : ({commit}) => {
-            // axios.get('http://api.blog.loc/posts')
             axios.get(`${api}/posts`)
                 .then(responce => {commit('setPosts', responce.data)})
             },
         // eslint-disable-next-line no-unused-vars
         setPost : ({commit}, id) => {
-            // axios.get(`http://api.blog.loc/posts/${id}`)
             axios.get(`${api}/posts/${id}`)
                 .then(responce => {commit('setPost', responce.data)})
         },
         setSettings : ({commit}) => {
-            // axios.get('http://api.blog.loc/settings')
             axios.get(`${api}/settings`)
                 .then(responce => {commit('setSettings', responce.data)})
+
         }
     }
 //===========================================================================

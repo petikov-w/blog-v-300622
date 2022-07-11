@@ -6,9 +6,12 @@
    .input
       label(for="email") Адрес электронной почты
       input( required name="email" id="email" placeholder="email")
+      p Текущий адрес эл.почты: <strong>{{ email }} </strong>
    .input
       label(for="telefon") Телефон в шапке сайта
       input(required name="telefon" id="telefon" placeholder="Телефон")
+      p Текущий номер телефона: <strong>{{ telefon }} </strong>
+
   button(@click="handleSave" type="submit") Сохранить
 
 </template>
@@ -23,10 +26,27 @@ export default {
   setup() {
     const store = useStore();
     store.dispatch('setSettings');
-    const telefon = computed(() => store.getters.getTelefon);
+    const telefon = computed(() => PhoneNumberFormat(store.getters.getTelefon));
+    const email = computed(() => store.getters.getEmail);
+    console.log(telefon,"  ",email);
+    const PhoneNumberFormat = (number) => {
+      let temp_number;
+      let pref;
+      temp_number = `${number}`;
+      if (temp_number[0] == '8') {
+        pref = temp_number.substr(0, 1)
+      }
+      // console.log(temp_number);
+      if (temp_number[0] == '7') {
+        pref = '+' + temp_number.substr(0, 1)
+      }
+      temp_number = temp_number.substr(-10);
+      return `${pref} (${temp_number.substr(0, 3)}) ${temp_number.substr(3, 3)}-${temp_number.substr(6, 2)}-${temp_number.substr(8, 2)}`;
+    }
+
     const handleSave = () => {};
 
-    return {telefon, handleSave }
+    return {telefon, email, handleSave }
   }
 }
 </script>
@@ -40,6 +60,10 @@ export default {
   display: flex;
   align-items: center;
   margin-bottom: -10px;
+  p {
+    margin-bottom: 20px;
+    color: #2D2D2D;
+  }
 }
 
 .title-panel {
@@ -94,12 +118,5 @@ button{
   }
 }
 
-//a {
-//  color: #4468e0;
-//
-//  &:hover {
-//    border-bottom: 1px solid #4468e0;
-//    padding-bottom: 3px;
-//  }
-//}
+
 </style>

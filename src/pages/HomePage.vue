@@ -1,7 +1,7 @@
 <template lang="pug">
 .wrapper
   .card-box
-    .card(v-for="value in posts" :key="value.posts" )
+    .card(v-for="value in posts" :key="value.posts")
       span.title {{ value.title }}
       span.body {{ secWord(value.body,12) }}
       router-link(:to='value.id' class="link-go") Подробнее...
