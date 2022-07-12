@@ -2,7 +2,7 @@
 footer.footer
   .footer-wrapper
     router-link(v-if="!isHome" :to="{ name: 'home'}" class="link-go") Вернуться на главную
-    router-link(v-if="!isAdmin && !isPost" :to="{ name: 'admin'}" class="link-go-admin") Панель администратора
+    router-link(v-if="!isAdmin && !isPost" :to="{ name: 'admin-main'}" class="link-go-admin") Панель администратора
 
 </template>
 
@@ -14,7 +14,8 @@ export default {
   name: 'Footer-m',
   setup() {
     const route = useRoute();
-    const isAdmin = computed(() => route.name==='admin' ? true : false);
+    const isAdmin = computed(() => route.name==='admin-main'|| route.name==='admin-posts'
+                                         ? true : false);
     const isHome = computed(() => route.name==='home' ? true : false);
     const isPost = computed(() => route.name==='post' ? true : false);
     return { isAdmin, isHome, isPost}

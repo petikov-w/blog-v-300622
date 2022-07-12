@@ -30,8 +30,16 @@ const routers = createRouter(
                 }
             },
             {
-                path: "/admin",
-                name: "admin",
+                path: "/admin/main",
+                name: "admin-main",
+                component: AdminPage,
+                meta: {
+                    title: "Панель администратора"
+                }
+            },
+            {
+                path: "/admin/posts",
+                name: "admin-post",
                 component: AdminPage,
                 meta: {
                     title: "Панель администратора"
