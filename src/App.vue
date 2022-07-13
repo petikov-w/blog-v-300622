@@ -1,6 +1,7 @@
 <template lang="pug">
 Header
-router-view
+wrapper
+  router-view
 Footer
 </template>
 

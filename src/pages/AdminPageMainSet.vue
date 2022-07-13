@@ -1,16 +1,7 @@
 <template lang="pug">
-//.wrapper-admin
 .wrapper
-  .admin-panel
-    .admin-box Панель администратора
-      ul.admin-nav
-      li
-       router-link(:to="{ name: 'admin-main'}" class="link-admin") Основные настройки
-      li
-       router-link(:to="{ name: 'admin-posts'}" class="link-admin") Посты
-
-
-
+  AdminPanel
+    include ../assets/pug/AdminMenu
   form.note-form(@submit.prevent="onSubmit")
    .input
       label(for="email") Адрес электронной почты
@@ -26,12 +17,15 @@
 </template>
 
 <script>
-// import $router from "@/routers";
+
 import {useStore} from 'vuex'
 import { computed} from "vue";
+import AdminPanel from "@/components/AdminPanel";
 
 export default {
-  name: "AdminPage",
+  name: "AdminPageMainSet",
+  components: {AdminPanel},
+
   setup() {
     const store = useStore();
     store.dispatch('setSettings');
@@ -53,10 +47,7 @@ export default {
       temp_number = temp_number.substr(-10);
       return `${pref} (${temp_number.substr(0, 3)}) ${temp_number.substr(3, 3)}-${temp_number.substr(6, 2)}-${temp_number.substr(8, 2)}`;
     }
-
-      const handleSave = async() => {
-
-
+    const handleSave = async() => {
         const email_r = (document.getElementById('email').value.length===0
                          ? email.value
                          : document.getElementById('email').value);
@@ -66,12 +57,12 @@ export default {
         const data = { "mail": email_r, "telefon": telefon_r }
 
 
-        console.log('=uuuu=> ',document.getElementById('email').value.length);
-        console.log('=0=> ',email, '=0=> ',telefon_a);
-        console.log('=1=> ',email_r);
-        console.log('=2=> ',telefon_r);
-        console.log('= data => ',data);
-        console.log('= data 2 => ',JSON.stringify(data));
+        // console.log('=uuuu=> ',document.getElementById('email').value.length);
+        // console.log('=0=> ',email, '=0=> ',telefon_a);
+        // console.log('=1=> ',email_r);
+        // console.log('=2=> ',telefon_r);
+        // console.log('= data => ',data);
+        // console.log('= data 2 => ',JSON.stringify(data));
 
         const res =await fetch('http://api.blog.loc/settings',
             {method: "PATCH", body: JSON.stringify(data)});
@@ -92,46 +83,6 @@ export default {
   text-transform: lowercase;
   @include font(16px, 500, 20px, #2D2D2D80);
 }
-
-
-.title-panel {
-  //font-family: $font-RobotoSlab;
-  //background-color: #4468e0;
-  //@include font(25px, 600, 30px, #FFFFFF);
-  //letter-spacing: 1.2px;
-  //padding: 10px 0 10px 20px ;
-  //margin: 25px 0;
-}
-
-.admin-panel {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #4468e0;
-  margin: 25px 0;
-  padding: 10px 0 10px 20px ;
-  .admin-box {
-    @include font(25px, 600, 30px, #FFFFFF);
-    letter-spacing: 1.2px;
-  }
-  .admin-nav {
-    display: flex;
-    justify-content: flex-end;
-    width: 30%;
-    @include font(16px, 500, 16px, #FFB400);
-    li, .link-admin {
-      margin-right: 20px;
-      &:hover {
-        color: #ffffff;
-        width: max-content;
-        border-bottom: 2px solid #ffffff;
-        padding-bottom: 3px;
-      }
-    }
-
-  }
-}
-
 
 .note-form {
   display: flex;
@@ -189,8 +140,7 @@ export default {
       color: #EF6D00;
       border: 1px solid #EF6D00;
     }
-}
-
+  }
 }
 
 

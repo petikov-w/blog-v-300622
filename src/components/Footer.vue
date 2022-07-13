@@ -14,7 +14,7 @@ export default {
   name: 'Footer-m',
   setup() {
     const route = useRoute();
-    const isAdmin = computed(() => route.name==='admin-main'|| route.name==='admin-posts'
+    const isAdmin = computed(() => route.name==='admin-main'|| route.name==='admin-post'
                                          ? true : false);
     const isHome = computed(() => route.name==='home' ? true : false);
     const isPost = computed(() => route.name==='post' ? true : false);

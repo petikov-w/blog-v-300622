@@ -5,7 +5,8 @@ const routerHistory = createWebHistory();
 import HomePage from "@/pages/HomePage";
 import notFoundPage from "@/pages/NotFoundPage";
 import ItemPost from "@/pages/PostPage"
-import AdminPage from "@/pages/AdminPage";
+import AdminPageMainSet from "@/pages/AdminPageMainSet";
+import AdminPagePostSet from "@/pages/AdminPagePostSet";
 
 const site = "Блог";
 
@@ -32,7 +33,7 @@ const routers = createRouter(
             {
                 path: "/admin/main",
                 name: "admin-main",
-                component: AdminPage,
+                component: AdminPageMainSet,
                 meta: {
                     title: "Панель администратора"
                 }
@@ -40,7 +41,7 @@ const routers = createRouter(
             {
                 path: "/admin/posts",
                 name: "admin-post",
-                component: AdminPage,
+                component: AdminPagePostSet,
                 meta: {
                     title: "Панель администратора"
                 }

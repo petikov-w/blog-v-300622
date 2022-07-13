@@ -16,3 +16,16 @@
     padding-bottom: 3px;
   }
 }
+
+.link-admin {
+  @include font(16px, 500, 16px, #ffffff); //#FFB400
+  opacity: 0.8;
+  display: flex;
+  margin-right: 20px;
+  &:hover {
+    opacity: 1;
+    width: max-content;
+    border-bottom: 2px solid #ffffff;
+    padding-bottom: 3px;
+  }
+}
