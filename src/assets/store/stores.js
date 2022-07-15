@@ -1,5 +1,6 @@
 import {createStore} from "vuex";
-import axios from "axios";
+// import axios from "axios";
+const axios = require('axios').default;
 const api = 'http://api.blog.loc'; // локальный сервер
 // const api = 'https://api.blog.kroxdev.ru'; // хостинг
 export default createStore({
@@ -8,8 +9,8 @@ export default createStore({
         posts: [],
         post: [],
         settings: [],
-        page: 2,
-        limit: 6,
+        page: 1,
+        limit: 4,
         totalPages: 0,
         logo: require('@/assets/images/logo-1.svg.png')
     },
@@ -27,11 +28,16 @@ export default createStore({
         setSettings(state, settings) {state.settings = settings}
     },
     actions: {
-        setPosts : async({commit, state}) => {
-           await axios.get(`${api}/posts`, {
+        setPosts : ({commit, state}) => {
+            axios.get(`${api}/posts`, {
                params: { _page: state.page, _limit: state.limit }
-           }).then(responce => {commit('setPosts', responce.data)})
-             .then(responce => {state.totalPages = responce.headers.get('x-total-count')});
+           }).then(responce => {commit('setPosts', responce.data);
+                                console.log('== 0 ==> ',responce.data);
+                                console.log('== 1 ==> ',responce.data.length);
+                                console.log('== 2 ==> ',responce.headers);
+                                console.log('== 4 ==> ', Math.ceil(responce.data.length / state.limit));
+                                // console.log('== 3 ==> ',responce.headers['x-auth-token']);
+           })
                 console.log(state.totalPages);
             },
         // eslint-disable-next-line no-unused-vars
