@@ -8,6 +8,9 @@ export default createStore({
         posts: [],
         post: [],
         settings: [],
+        page: 2,
+        limit: 6,
+        totalPages: 0,
         logo: require('@/assets/images/logo-1.svg.png')
     },
     getters: {
@@ -24,9 +27,12 @@ export default createStore({
         setSettings(state, settings) {state.settings = settings}
     },
     actions: {
-        setPosts : ({commit}) => {
-            axios.get(`${api}/posts`)
-                .then(responce => {commit('setPosts', responce.data)})
+        setPosts : async({commit, state}) => {
+           await axios.get(`${api}/posts`, {
+               params: { _page: state.page, _limit: state.limit }
+           }).then(responce => {commit('setPosts', responce.data)})
+             .then(responce => {state.totalPages = responce.headers.get('x-total-count')});
+                console.log(state.totalPages);
             },
         // eslint-disable-next-line no-unused-vars
         setPost : ({commit}, id) => {
