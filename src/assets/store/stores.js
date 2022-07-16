@@ -24,7 +24,8 @@ export default createStore({
         getLogo: (state) => state.logo,
         getTotalPages : (state) => state.totalPages,
         getTotalItems : (state) => state.totalItems,
-        getPostsPage : (state) => state.limit
+        getPostsPage : (state) => state.limit,
+        getCurrentPage : state => state.page
     },
     mutations: {
         setPosts(state, posts) { state.posts = posts },
