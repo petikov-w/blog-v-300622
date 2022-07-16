@@ -7,7 +7,7 @@
   //h1 Текущий офсет:  {{ pagination_offset }}
 
   .card-box(onload="changePage")
-    .card(v-for="value in posts_pagin" :key="value.posts")
+    .card(v-for="value in posts_pagin" :key="value.id")
       span.title {{ value.title }}
       span.body {{ secWord(value.body,12) }}
       router-link(:to='value.id' class="link-go") Подробнее...
@@ -31,7 +31,7 @@
 <script>
 import {useStore} from 'vuex'
 // import {useRoute} from "vue-router";
-import {ref,computed, onBeforeMount} from "vue";
+import {ref,computed, onBeforeUpdate, onMounted} from "vue";
 import paginate from 'vuejs-paginate-next';
 
 export default {
@@ -42,7 +42,7 @@ export default {
       const store = useStore();
       // const route = useRoute();
       store.dispatch('setPosts');
-      const page = ref(2);
+      const page = ref(0);
       const pagination_offset = ref(0);
       const posts = computed(() => store.getters.getPosts);
       const totalPages = computed(() => store.getters.getTotalPages);
@@ -73,10 +73,19 @@ export default {
         // console.log("= 2 => ", s3)
         // console.log("= 3 => ", posts_pagin.value)
         }
-    onBeforeMount(() => {
-      changePage();
-    })
 
+    onBeforeUpdate(() => {
+      // store.dispatch('setPosts');
+      changePage(page.value);
+      console.log("==1===>  ",posts.value);
+      console.log("==2===>  ",posts_pagin.value);
+    })
+    onMounted(() => {
+      // store.dispatch('setPosts');
+      changePage(page.value);
+      console.log("==1===>  ",posts.value);
+      console.log("==2===>  ",posts_pagin.value);
+    })
 //------------------------------------
       return {secWord,
               // posts,
