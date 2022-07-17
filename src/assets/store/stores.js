@@ -10,13 +10,14 @@ export default createStore({
         post: [],
         settings: [],
         page: 1,
-        limit: 4,
+        limit: 3,
         totalPages: 0,
         totalItems: 0,
         logo: require('@/assets/images/logo-1.svg.png')
     },
     getters: {
-        getPosts: (state) => state.posts,
+        // getPosts: (state) => state.posts,
+        getPosts: (state) => state.posts.sort((a, b) => Number(a.id) < Number(b.id) ? 1 : -1),
         getPost: (state) => state.post,
         getTelefon: (state) => state.settings.telefon,
         getEmail: (state) => state.settings.mail,
