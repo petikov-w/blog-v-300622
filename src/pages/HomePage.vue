@@ -1,7 +1,6 @@
 <template lang="pug">
 .wrapper
   .content-box
-    //.card-box(onload="changePage")
     .card-box
       .card(v-for="value in posts_pagin" :key="value.id")
         span.title {{ value.title }}
@@ -57,7 +56,7 @@ export default {
           result += "...";
       return result;}
       const changePage = (page_num) => {
-        page.value = page_num;
+        page.value = page_num===0 ? page_num = 1 : page_num;
         pagination_offset.value = (postsPage.value*page.value)-postsPage.value;
         // if (page.value === 1) {
         //  console.log(route.path=`/page=${page.value}`)  }
@@ -65,17 +64,13 @@ export default {
         //    route.push(`/page=${page.value}`)
         // }
 
-        console.log("== changePage ===>  ",posts.value);
-
-        // posts_pagin.value = JSON.parse(JSON.stringify(posts.value.sort((a, b) => Number(a.id) < Number(b.id) ? 1 : -1))).
-        //                     splice(pagination_offset.value, postsPage.value);
-
-        posts_pagin.value = JSON.parse(JSON.stringify(posts.value)).
+        posts_pagin.value = JSON.parse(JSON.stringify(posts.value.sort((a, b) => Number(a.id) < Number(b.id) ? 1 : -1))).
                             splice(pagination_offset.value, postsPage.value);
+
       }
 
-    onBeforeUpdate(() => { console.log("==Before===>  ",posts.value); changePage(page.value); })
-    onMounted(() => { console.log("==Mounted===>  ",posts.value); changePage(page.value); })
+    onBeforeUpdate(() => { changePage(page.value); })
+    onMounted(() => { changePage(page.value); })
 //------------------------------------
       return {secWord,
               changePage,

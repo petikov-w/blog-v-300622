@@ -16,8 +16,7 @@ export default createStore({
         logo: require('@/assets/images/logo-1.svg.png')
     },
     getters: {
-        // getPosts: (state) => state.posts,
-        getPosts: (state) => state.posts.sort((a, b) => Number(a.id) < Number(b.id) ? 1 : -1),
+        getPosts: (state) => state.posts,
         getPost: (state) => state.post,
         getTelefon: (state) => state.settings.telefon,
         getEmail: (state) => state.settings.mail,
@@ -29,6 +28,9 @@ export default createStore({
         getCurrentPage : state => state.page
     },
     mutations: {
+        // setPosts(state, posts) {
+        //     posts.sort((a, b) => Number(a.id) < Number(b.id) ? 1 : -1)
+        //     state.posts = posts },
         setPosts(state, posts) { state.posts = posts },
         setPost(state, post) { state.post = post },
         setSettings(state, settings) {state.settings = settings}
@@ -40,8 +42,6 @@ export default createStore({
            }).then(responce => {commit('setPosts', responce.data);
                                 state.totalItems = responce.data.length;
                                 state.totalPages = Math.ceil(responce.data.length / state.limit);
-                                //console.log('== 0 ==> ',responce.data);
-                                // console.log('== 1 ==> ',responce.data.length);
            })},
         setPost : ({commit}, id) => {
             axios.get(`${api}/posts/${id}`)
