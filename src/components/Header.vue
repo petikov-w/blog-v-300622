@@ -10,12 +10,14 @@
 
 <script>
 import {useStore} from 'vuex'
-import {computed} from "vue";
+import {computed, onMounted} from "vue";
 import Telefon from "@/components/UI/NumberTelefon";
+
 
 export default {
   name: 'vHeader',
   components: {Telefon} ,
+  // setup(props, {emet}) {
   setup() {
 
     const store = useStore();
@@ -23,6 +25,10 @@ export default {
     const telefon = computed(() => store.getters.getTelefon);
     const logo = computed(() => store.getters.getLogo);
     const title_site = computed(() => store.getters.getTitle);
+
+    onMounted(() => {
+        // emet('setM', "222");
+    });
 
     return { logo, telefon, title_site }
 
