@@ -82,6 +82,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+//.mask {
+//  width: 100%;
+//  heigth: 100%!important;
+//  background-color: #ffffff;
+//  position: fixed;
+//  top: 0;
+//  z-index: 100;
+//  transition: 0.6s;
+//  display: flex;
+//  justify-content: center;
+//  align-items: center;
+//}
 
 .content-box {
   display: flex;
