@@ -10,7 +10,7 @@
 
 <script>
 import {useStore} from 'vuex'
-import {computed, onMounted} from "vue";
+import {computed} from "vue";
 import Telefon from "@/components/UI/NumberTelefon";
 
 
@@ -26,9 +26,9 @@ export default {
     const logo = computed(() => store.getters.getLogo);
     const title_site = computed(() => store.getters.getTitle);
 
-    onMounted(() => {
-        // emet('setM', "222");
-    });
+    // onMounted(() => {
+    //     // emet('setM', "222");
+    // });
 
     return { logo, telefon, title_site }
 

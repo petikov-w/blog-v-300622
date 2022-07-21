@@ -1,6 +1,6 @@
 <template lang="pug">
-.mask-preloader
-  .preloader
+//.mask-preloader
+//  .preloader
 .wrapper
   .content-box
     .card-box
@@ -71,14 +71,20 @@ export default {
 
       }
 
-    onBeforeUpdate(() => { changePage(page.value); })
+    onBeforeUpdate(() => {
+      // let mask = document.querySelector('.mask-preloader');
+      // window.addEventListener('load',()=> {
+      //   mask.classList.add('hide-preloader');
+      //   setTimeout(()=> { mask.remove(); },600)
+      // });
+      changePage(page.value); })
     onMounted(() => {
 
-      let mask = document.querySelector('.mask-preloader');
-      window.addEventListener('load',()=> {
-        mask.classList.add('hide-preloader');
-        setTimeout(()=> { mask.remove(); },600)
-      });
+      // let mask = document.querySelector('.mask-preloader');
+      // window.addEventListener('load',()=> {
+      //   mask.classList.add('hide-preloader');
+      //   setTimeout(()=> { mask.remove(); },600)
+      // });
       changePage(page.value);
     });
 

@@ -1,5 +1,6 @@
 <template lang="pug">
-Header(v-on:SetM="eventHandler")
+//Header(v-on:SetM="eventHandler")
+Header
 wrapper
   router-view
 Footer
@@ -14,13 +15,7 @@ export default {
 
   components: { Header, Footer},
   setup() {
-      //   onMounted(() => {
-      //     let mask = document.querySelector('.mask');
-      //     window.addEventListener('load',()=> {
-      //       mask.classList.add('hide');
-      //       setTimeout(()=> { mask.remove(); },600)
-      //     })
-      // })
+
     const eventHandler = () => {console.log('Привет')}
     return {eventHandler}
   }
