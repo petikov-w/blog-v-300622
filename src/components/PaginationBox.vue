@@ -1,5 +1,5 @@
 <template lang="pug">
-//.paginate-box
+slot
 paginate(
   v-model="page"
   :page-count="totalPages"
@@ -26,10 +26,11 @@ import paginate from 'vuejs-paginate-next';
 export default {
   name: "PaginationBox",
   components: {paginate},
-  setup() {
+  setup(props, {emit}) {
     const store = useStore();
     // const route = useRoute();
     store.dispatch('setPosts');
+    console.log("-----o-----")
     // Состояние пагинации
     const page = ref(0); //Текущая страница
     const pagination_offset = ref(0); //Текущий офсет
@@ -46,6 +47,7 @@ export default {
 
     onBeforeUpdate(() => { changePage(page.value); })
     onMounted(() => { changePage(page.value);
+      emit('listPosts', posts_pagin.value);
     });
     return {
       changePage,

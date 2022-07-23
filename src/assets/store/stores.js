@@ -13,7 +13,8 @@ export default createStore({
         limit: 3,
         totalPages: 0,
         totalItems: 0,
-        logo: require('@/assets/images/logo-1.svg.png')
+        logo: require('@/assets/images/logo-1.svg.png'),
+        loadingStatus: false
     },
     getters: {
         getPosts: (state) => state.posts,
@@ -25,7 +26,8 @@ export default createStore({
         getTotalPages : (state) => state.totalPages,
         getTotalItems : (state) => state.totalItems,
         getPostsPage : (state) => state.limit,
-        getCurrentPage : state => state.page
+        getCurrentPage : state => state.page,
+        getLoadingStatus: state => state.loadingStatus
     },
     mutations: {
         // setPosts(state, posts) {
@@ -33,24 +35,38 @@ export default createStore({
         //     state.posts = posts },
         setPosts(state, posts) { state.posts = posts },
         setPost(state, post) { state.post = post },
-        setSettings(state, settings) {state.settings = settings}
+        setSettings(state, settings) {state.settings = settings},
+        setLoadingStatus(state, loadingStatus) {state.loadingStatus = loadingStatus}
     },
     actions: {
         setPosts : ({commit, state}) => {
-            axios.get(`${api}/posts`, {
-               params: { page: state.page, limit: state.limit }
-           }).then(responce => {commit('setPosts', responce.data);
-                                state.totalItems = responce.data.length;
-                                state.totalPages = Math.ceil(responce.data.length / state.limit);
-           })},
-        setPost : ({commit}, id) => {
-            axios.get(`${api}/posts/${id}`)
-                .then(responce => {commit('setPost', responce.data)})
-        },
-        setSettings : ({commit}) => {
-            axios.get(`${api}/settings`)
-                .then(responce => {commit('setSettings', responce.data)})
+            commit('setLoadingStatus',true);
+            axios.get(`${api}/posts`).then(responce => {
+                      commit('setPosts', responce.data);
+                      state.totalItems = responce.data.length;
+                      state.totalPages = Math.ceil(responce.data.length / state.limit);
+                      })
+                  .catch((err) => {console.log("Ошибка загрузки списка постов ===> ", err)})
+                  .finally(()=>{commit('setLoadingStatus',false),
+                                        console.log("СПИСОК ПОСТОВ ==> Oо-оО!!!")})},
 
+        setPost : ({commit}, id) => {
+            commit('setLoadingStatus',true);
+            axios.get(`${api}/posts/${id}`)
+                .then(responce => {commit('setPost', responce.data);
+                commit('setLoadingStatus',false)})
+                .catch((err) => {console.log("Ошибка загрузки отдельного поста ===> ", err)})
+                .finally(()=>{commit('setLoadingStatus',false),
+                                      console.log("ПОСТ ==> Oо-оО!!!")})},
+
+        setSettings : ({commit}) => {
+            commit('setLoadingStatus',true);
+            axios.get(`${api}/settings`)
+                .then(responce => {commit('setSettings', responce.data);
+                commit('setLoadingStatus',false)})
+                .catch((err) => {console.log("Ошибка загрузки списка настроек ===> ", err)})
+                .finally(()=>{commit('setLoadingStatus',false),
+                    console.log("СПИСОК НАСТРОЕК ==> Oо-оО!!!")})
         }
     }
 //===========================================================================

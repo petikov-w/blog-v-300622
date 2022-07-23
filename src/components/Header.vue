@@ -1,4 +1,6 @@
 <template lang="pug">
+.mask-preloader(v-if="loadingStatus")
+  .preloader
 .header-wrapper
   router-link(:to="{ name: 'home'}")
     .logo
@@ -17,20 +19,16 @@ import Telefon from "@/components/UI/NumberTelefon";
 export default {
   name: 'vHeader',
   components: {Telefon} ,
-  // setup(props, {emet}) {
   setup() {
-
     const store = useStore();
     store.dispatch('setSettings');
     const telefon = computed(() => store.getters.getTelefon);
     const logo = computed(() => store.getters.getLogo);
     const title_site = computed(() => store.getters.getTitle);
+    const loadingStatus = computed(() => store.getters.getLoadingStatus);
+    //------------------------------------
 
-    // onMounted(() => {
-    //     // emet('setM', "222");
-    // });
-
-    return { logo, telefon, title_site }
+    return { logo, telefon, title_site, loadingStatus }
 
   }
 }

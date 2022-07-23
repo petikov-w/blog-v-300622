@@ -1,4 +1,6 @@
 <template lang="pug">
+.mask-preloader(v-if="loadingStatus")
+  .preloader
 .wrapper
   .post-content
     .post-title {{ post.title }}
@@ -19,14 +21,10 @@ export default {
     store.dispatch('setPost', route.fullPath);
     let post = ref("");
     post = computed(() => store.getters.getPost);
-
-
-
-
-
-
+    // Состояние загрузки
+    const loadingStatus = computed(() => store.getters.getLoadingStatus);
 //------------------------------------
-    return {post}
+    return {post, loadingStatus}
   }
 }
 </script>
