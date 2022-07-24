@@ -1,10 +1,10 @@
 <template lang="pug">
-h1 ****** {{ sd }}
+//h1 ****** {{ sd }}
 .mask-preloader(v-if="loadingStatus")
   .preloader
 .wrapper
   .content-box
-    PaginationBox(@listPosts="handlePage" :list-main="posts" :limit-items-in-page="4")
+    PaginationBox(@listPosts="handlePage" :list-main="posts" :limit-items-in-page="3")
       .card-box
         .card(v-for="value in posts_ps" :key="value.id")
           span.title {{ value.title }}
@@ -28,18 +28,16 @@ export default {
     const store = useStore();
     store.dispatch('setPosts');
     const posts = computed(() => store.getters.getPosts);
-    const sd = computed(() => store.getters.getPosts).value.length;
+    //const sd = computed(() => store.getters.getPosts).value.length;
     const posts_ps = ref([]);
-    const ghj = ref(posts.value).length;
-    console.log("ooooooooooooo> ", posts.value)
+    // const ghj = ref(posts.value).length;
+    // console.log("ooooooooooooo> ", posts.value)
     const handlePage = ((most) => {posts_ps.value=most;})
     return {
       secWord,
       handlePage,
       posts,
-      posts_ps,
-      ghj,
-      sd
+      posts_ps
     }
   }
 }
