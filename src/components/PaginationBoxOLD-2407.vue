@@ -1,9 +1,5 @@
 <template lang="pug">
 h1 {{ dest }}
-h1 -----------------
-h1 Постов на странице {{ postPageN }}
-h1 Всего страниц с постами {{ totalPostPages }}
-h1 Всего постов {{ totalItemsN }}
 slot
 paginate(
   v-model="page"
@@ -30,28 +26,16 @@ import paginate from 'vuejs-paginate-next';
 export default {
   name: "PaginationBox",
   components: {paginate},
-  props: {
-            listMain: { require: true },
-            limitItemsInPage : { require: true, type: Number },
-            totalItems: { require: true, type: Number }
-         },
+  props: { listMain: { require: true }},
   setup(props, {emit}) {
     const store = useStore();
     // const route = useRoute();
-    const dest = ref( [])
-
+    const dest = ref( props.listMain)
+    store.dispatch('setPosts');
     // store.dispatch(dest.value);
     // Состояние пагинации
     const page = ref(0); //Текущая страница
     const pagination_offset = ref(0); //Текущий офсет
-
-    const postPageN = ref(props.limitItemsInPage)   //Постов на странице
-    const totalItemsN = ref (0) //Всего страниц с постами
-    const miks = ref ([]) //Всего страниц с постами
-
-   // state.totalPages = Math.ceil(responce.data.length / state.limit);
-
-
     const totalPages = computed(() => store.getters.getTotalPages); //Всего страниц с постами
     const postsPage= computed(() => store.getters.getPostsPage); //Постов на странице
     const posts = computed(() => store.getters.getPosts);
@@ -63,19 +47,13 @@ export default {
       splice(pagination_offset.value, postsPage.value);
       emit('listPosts', posts_pagin.value);
     }
-    onBeforeUpdate(() => { dest.value = ref( props.listMain);
-                                 totalItemsN.value = ref( props.listMain).value.length;
-                                console.log("-=-=-=-  ", miks.value.length )
-                                changePage(page.value); })
-    onMounted(() => { dest.value = ref( props.listMain); changePage(page.value); });
+    onBeforeUpdate(() => { changePage(page.value); })
+    onMounted(() => { changePage(page.value); });
     return {
       changePage,
       totalPages,
       page,
-      dest,
-      postPageN,
-      // totalPostPages,
-      totalItemsN
+      dest
       // posts_pagin
     }
   }
