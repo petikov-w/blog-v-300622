@@ -1,10 +1,10 @@
 <template lang="pug">
-//h1 ****** {{ sd }}
+//h1 ****** {{ posts_ps }}
 .mask-preloader(v-if="loadingStatus")
   .preloader
 .wrapper
   .content-box
-    PaginationBox(@listPosts="handlePage" :list-main="posts" :limit-items-in-page="3")
+    PaginationBox(@listPosts="handlePage" :list-main="posts" :limit-items-in-page="3" :order-sort="V" )
       .card-box
         .card(v-for="value in posts_ps" :key="value.id")
           span.title {{ value.title }}

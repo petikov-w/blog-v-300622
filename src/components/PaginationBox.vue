@@ -1,12 +1,8 @@
 <template lang="pug">
-//h1 {{ posts }}
-h1 --------0000---------
-h1 {{ dest }}
-h1 -----------------
-h1 Постов на странице {{ postsPage }}
-h1 Всего страниц с постами {{ totalPages }}
-h1 Текущая страница {{ page }}
-h1 offset {{ pagination_offset }}
+//h1 Постов на странице {{ postsPage }}
+//h1 Всего страниц с постами {{ totalPages }}
+//h1 Текущая страница {{ page }}
+//h1 offset {{ pagination_offset }}
 slot
 paginate(
   v-model="page"
@@ -26,50 +22,50 @@ paginate(
 </template>
 
 <script>
-/* eslint-disable no-unused-vars */
 // import {useStore} from 'vuex'
 // import {useRoute} from "vue-router";
-import {ref, computed, onBeforeUpdate, onMounted} from "vue";
+import {ref, onBeforeUpdate, onMounted} from "vue";
 import paginate from 'vuejs-paginate-next';
 export default {
   name: "PaginationBox",
   components: {paginate},
   props: {
-            listMain: { require: true },
+            listMain: { require: true, type: Array },
             limitItemsInPage : { require: true, type: Number },
-            // totalItems: { require: true, type: Number }
+            orderSort: {require: true, type: String, default: "U"}
          },
   setup(props, {emit}) {
     // const store = useStore();
     // const route = useRoute();
-    const dest = ref( []);
-    // const posts = ref( []);
-    const posts_pagin = ref ([]);
+    let dataset_in = [];
+    let datset_sort = [];
     // Состояние пагинации
     const page = ref(1); //Текущая страница
     const pagination_offset = ref(0); //Текущий офсет
     const postsPage = ref(props.limitItemsInPage);   //Постов на странице
     const totalPages = ref (0); //Всего страниц с постами
 
-   // const posts = computed(() => store.getters.getPosts);
-
     const changePage = (page_num) => {
-      page.value = page_num===0 ? page_num = 1 : page_num;
+      page.value = page_num;
       pagination_offset.value = (postsPage.value*page.value)-postsPage.value;
+      if(props.orderSort === "U") {
+        datset_sort = dataset_in.sort((a, b) => Number(a.id) < Number(b.id) ? 1 : -1);
+      } else if (props.orderSort === "V") {
+        datset_sort = dataset_in.sort((a, b) => Number(a.id) > Number(b.id) ? 1 : -1);
+      }
 
-      // posts_pagin.value = JSON.parse(JSON.stringify(dest.value.sort((a, b) => Number(a.id) < Number(b.id) ? 1 : -1)))
-      //                     .splice(pagination_offset.value, postsPage.value);
-                           let rrr = JSON.parse(JSON.stringify(dest.value));
-      console.log('------->>> ', rrr.splice(pagination_offset.value, postsPage.value) );
-      // posts_pagin.value = JSON.parse(JSON.stringify(dest.value));
-      //
-      // emit('listPosts', posts_pagin.value);
+      // const dataset_out = JSON.parse(JSON.stringify(dataset_in.sort((a, b) => Number(a.id) < Number(b.id) ? 1 : -1)))
+      //       .splice(pagination_offset.value, postsPage.value);
+      const dataset_out = JSON.parse(JSON.stringify(datset_sort)).splice(pagination_offset.value, postsPage.value);
+      emit('listPosts', dataset_out);
     }
-    onBeforeUpdate(() => { dest.value = ref( props.listMain);
+    onBeforeUpdate(() => {
+                                dataset_in = props.listMain;
                                 totalPages.value = Math.ceil( ref(props.listMain).value.length / postsPage.value);
-                                 changePage(page.value);
+                                changePage(page.value);
     })
-    onMounted(() => { dest.value = ref( props.listMain);
+    onMounted(() => {
+      dataset_in = props.listMain;
        changePage(page.value);
     });
     return {
@@ -80,8 +76,8 @@ export default {
       // posts,
       // totalPostPages,
       //totalItemsN
-      dest,
-      posts_pagin,
+      dest: dataset_in,
+     // posts_pagin,
       pagination_offset
     }
   }
