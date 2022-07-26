@@ -4,7 +4,7 @@
   .preloader
 .wrapper
   .content-box
-    PaginationBox(@listPosts="handlePage" :list-main="posts" :limit-items-in-page="3" :order-sort="V" )
+    PaginationBox(@listPosts="handlePage" :list-main="posts" :order-sort="1" :limit-items-in-page="3"  )
       .card-box
         .card(v-for="value in posts_ps" :key="value.id")
           span.title {{ value.title }}

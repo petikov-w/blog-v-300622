@@ -32,7 +32,7 @@ export default {
   props: {
             listMain: { require: true, type: Array },
             limitItemsInPage : { require: true, type: Number },
-            orderSort: {require: true, type: String, default: "U"}
+            orderSort: {require: true, type: Number, default: 1}
          },
   setup(props, {emit}) {
     // const store = useStore();
@@ -43,14 +43,19 @@ export default {
     const page = ref(1); //Текущая страница
     const pagination_offset = ref(0); //Текущий офсет
     const postsPage = ref(props.limitItemsInPage);   //Постов на странице
-    const totalPages = ref (0); //Всего страниц с постами
+    const totalPages = ref(0); //Всего страниц с постами
+    const orderSort = ref(props.orderSort);
+    // const orderSort = computed(()=>{
+    //   return `${props.orderSort}`
+    // });
 
     const changePage = (page_num) => {
       page.value = page_num;
       pagination_offset.value = (postsPage.value*page.value)-postsPage.value;
-      if(props.orderSort === "U") {
+      console.log("----sort----->>>> ", orderSort.value);
+      if(orderSort.value === 1) {
         datset_sort = dataset_in.sort((a, b) => Number(a.id) < Number(b.id) ? 1 : -1);
-      } else if (props.orderSort === "V") {
+      } else if (orderSort.value === 2) {
         datset_sort = dataset_in.sort((a, b) => Number(a.id) > Number(b.id) ? 1 : -1);
       }
 
@@ -73,12 +78,9 @@ export default {
       totalPages,
       page,
       postsPage,
-      // posts,
-      // totalPostPages,
-      //totalItemsN
-      dest: dataset_in,
+     //dest: dataset_in,
      // posts_pagin,
-      pagination_offset
+     // pagination_offset
     }
   }
 }
