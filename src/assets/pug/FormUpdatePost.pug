@@ -1,0 +1,9 @@
+form.note-form(@submit.prevent="onSubmit") Изменение поста
+    .input
+        //label(for="email") Адрес электронной почты
+        input( required name="body-title" v-model="current_post.title" id="body-title" placeholder="Название поста")
+    .input
+        //label(for="Введите содержимое поста") Телефон в шапке сайта
+        textarea(required name="body-post" v-model="current_post.body" id="body-post" placeholder="Содержимое поста")
+
+    button(@click="handleSaveUpdate()" type="submit") Изменить

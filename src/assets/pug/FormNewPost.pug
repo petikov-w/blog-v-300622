@@ -1,0 +1,9 @@
+form.note-form(@submit.prevent="onSubmit") Новый пост
+    .input
+        //label(for="email") Адрес электронной почты
+        input( required name="body-title" id="body-title" placeholder="Название поста")
+    .input
+        //label(for="Введите содержимое поста") Телефон в шапке сайта
+        textarea(required name="body-post" id="body-post" placeholder="Содержимое поста")
+
+    button(@click="handleSave()" type="submit") Сохранить

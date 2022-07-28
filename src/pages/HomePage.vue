@@ -1,5 +1,4 @@
 <template lang="pug">
-//h1 ****** {{ posts_ps }}
 .mask-preloader(v-if="loadingStatus")
   .preloader
 .wrapper
@@ -28,10 +27,7 @@ export default {
     const store = useStore();
     store.dispatch('setPosts');
     const posts = computed(() => store.getters.getPosts);
-    //const sd = computed(() => store.getters.getPosts).value.length;
     const posts_ps = ref([]);
-    // const ghj = ref(posts.value).length;
-    // console.log("ooooooooooooo> ", posts.value)
     const handlePage = ((most) => {posts_ps.value=most;})
     return {
       secWord,

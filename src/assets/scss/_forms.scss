@@ -1,61 +1,96 @@
-//::placeholder {
-//  text-transform: uppercase;
-//  font-family: $font-OpenSans;
-//  @include font(12px, 400, 16px, #2D2D2D80);
-//}
-//
-//input {
-//  width: 400px;
-//  height: 50px;
-//  border: 1px solid #2D2D2D;
-//  border-radius: 10px;
-//  padding: 10px 10px;
-//  margin: 5px 17px 25px;
-//  color: #EF5221;
-//}
+.note-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  //padding: 15px;
+  margin-right: 30px;
+  font-family: $font-RobotoSlab;
+  @include font(22px, 600, 26px, #4468e0);
+  border-right: 1px solid #C8CDD2;
+  padding-right: 40px;
+  input {
+    width: 500px;
+    height: 40px;
+    border-radius: 5px;
+    padding: 3px 20px;
+    margin: 10px 0;
+    font-size: 18px;
+    color: #EF5221;
+    background-color: #c8cdd2;
+    border: none;
+    &::placeholder {
+      font-family: sans-serif;
+      text-transform: lowercase;
+      @include font(16px, 500, 20px, #2D2D2D80);
+    }
+  }
+  label {
+    margin-right: 20px!important;
+    color: #303133;
+    padding-bottom: 15px;
+    @include font(18px, 400, 18px, #0c0c0c);
+  }
+  textarea {
+    width: 500px;
+    height: 250px;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #126b05;
+    background-color: #c8cdd2;
+    border: none;
+    &::placeholder {
+      font-family: sans-serif;
+      text-transform: lowercase;
+      @include font(16px, 500, 20px, #2D2D2D80);
+    }
+  }
 
-//.note-form {
-//  display: flex;
-//  flex-direction: column;
-//  align-items: center;
-//  padding: 15px;
-//  img {
-//    width: 85%;
-//    margin-bottom: 25px;
-//    margin-top: 15px;
-//  }
-//  input {
-//    width: 400px;
-//    height: 50px;
-//    border-radius: 10px;
-//    padding: 10px 10px;
-//    margin: 5px 17px 25px;
-//    color: #EF5221;
-//    @media screen and (max-width: $phoneWidth) {
-//      width: 330px;
-//    }
-//  }
-//}
+}
 
-//.header-title {
-//  display: flex;
-//  justify-content: space-between;
-//  width: 380px;
-//  @media screen and (max-width: $phoneWidth) {
-//    width: 330px;
-//  }
-//
-//  .form-title {
-//    font-family: $font-RussoOne;
-//    @include font(20px, 400, 24px, #EF5221);
-//    letter-spacing: 1.1px;
-//    text-transform: uppercase;
-//    max-width: 280px;
-//    margin: 10px 0 25px 0;
-//  }
-//  .close-form {
-//    @include font(34px, 500, 42px, #EF5221);
-//    cursor: pointer;
-//  }
-//}
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 15px;
+  .input {
+    display: flex;
+    align-items: center;
+    margin-bottom: -10px;
+    p {
+      margin-bottom: 20px;
+      color: #2D2D2D;
+    }
+  }
+  .telefon {
+    //font-family: $font-OpenSans;
+    @include font(20px, 400, 30px, #ffffff);
+  }
+  #telefon {
+    margin-left: 35px;
+  }
 
+  label {
+    margin-right: 20px!important;
+    color: #303133;
+    padding-bottom: 15px;
+    @include font(18px, 400, 18px, #0c0c0c);
+  }
+
+  input {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+    padding: 5px 20px;
+    margin: 5px 17px 25px;
+    color: #EF5221;
+    background-color: #c8cdd2;
+    border: none;
+    &::placeholder {
+      text-transform: lowercase;
+      @include font(16px, 500, 20px, #2D2D2D80);
+    }
+  }
+}
