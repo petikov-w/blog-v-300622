@@ -18,7 +18,7 @@
              span.post-title {{ value.title }}
              span.action-box
                p(style="color: green;" @click="clickPostUpdate(value)") &#9998
-               p(style="color: red;" @click="clickPostDelete") &#10006
+               p(style="color: red;" @click="clickPostDelete(value)") &#10006
 
 </template>
 
@@ -78,6 +78,8 @@ export default {
             body: JSON.stringify(data)
           });
       if (res.ok === true)  await store.dispatch('setPosts');
+      newPost.value = true;
+      updatePost.value = false;
     };
 
     const clickPostUpdate = (value) => {
@@ -86,10 +88,19 @@ export default {
          current_post.value = value;
       //console.log("==========> ", current_post.value);
     };
-    const clickPostDelete = () => {
-         message.value = "Пост удален";
-         newPost.value = true;
-         updatePost.value = false;
+    const clickPostDelete = async (value) => {
+         // message.value = "Пост удален";
+         // newPost.value = true;
+         // updatePost.value = false;
+         current_post.value = value;
+         console.log('---- 0001 ---->>> ',current_post);
+
+      const res = await fetch(`http://api.blog.loc/posts/${current_post.value.id}`,
+          {
+            method: "DELETE"
+          });
+      if (res.ok === true)  await store.dispatch('setPosts');
+
     };
 
 

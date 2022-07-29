@@ -34,6 +34,19 @@
   }
 }
 
+.break-view {
+  background-color: #ffffff;
+  color: blue;
+  border: none;
+  font-weight: bold;
+  font-size: 30px;
+  &:focus {
+    //z-index: 3;
+    background-color: #ffffff;
+    border: none;
+
+  }
+}
 
 .arrow {
   padding: 8px 10px;
@@ -54,6 +67,5 @@
   &-next {
     margin-top: -2px;
   }
-
 }
 

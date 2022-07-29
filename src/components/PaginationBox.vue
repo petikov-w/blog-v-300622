@@ -3,7 +3,7 @@ slot
 paginate(
   v-model="page"
   :page-count="totalPages"
-  :page-range="3"
+  :page-range="2"
   :click-handler="changePage"
   :prev-text="'&#10140'"
   :prev-class="'arrow-prev'"
@@ -14,6 +14,8 @@ paginate(
   :container-class="'pagination'"
   :page-class="'page-item'"
   :active-class="'active'"
+  :break-view-link-class ="'break-view'"
+  :hide-prev-next="true"
 )
 </template>
 
