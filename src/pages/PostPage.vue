@@ -46,6 +46,7 @@ export default {
   p {
     max-width: 60vw;
     margin-bottom: 30px;
+    white-space: pre-wrap;
   }
 }
 
