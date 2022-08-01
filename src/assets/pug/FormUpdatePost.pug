@@ -1,5 +1,5 @@
 form.note-form(@submit.prevent="onSubmit") Изменение поста
-    h1(v-if="changeFlag") Пост был изменен
+    h4(v-if="changeFlag") Пост был изменен
     .input
         input( required name="body-title" :onchange="handleChange" v-model="current_post.title" id="body-title" placeholder="Название поста")
     .input

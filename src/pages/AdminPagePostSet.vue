@@ -1,6 +1,6 @@
 <template lang="pug">
 Dialog(v-model:show="dialogVisible")
-   include ../assets/pug/DIalogDeletePost
+   include ../assets/pug/DialogDeletePost
 .wrapper
   AdminPanel
    include ../assets/pug/AdminMenu
@@ -87,6 +87,7 @@ export default {
          newPost.value = false;
          updatePost.value = true;
          current_post.value = value;
+         if (changeFlag.value) alert("привет")
       //console.log("==========> ", current_post.value);
     };
     const clickPostDelete = async (value) => {
@@ -98,7 +99,7 @@ export default {
     };
     const hiddenDialog = () => {dialogVisible.value=false;}
     const showDialogDelete = (value) => {
-      if (changeFlag) {}
+      // if (changeFlag) {}
       dialogVisible.value=true;
       current_post.value=value;}
     const handleChange = () => changeFlag.value = true;
