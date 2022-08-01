@@ -1,0 +1,11 @@
+form.delete-form(@submit.prevent="onSubmit")
+    .header-box
+        .form-title Изменение поста
+        .close-form(@click="hiddenDialog") &#10005
+    .content-box
+        p Выбранный пост был изменен. Сохранить изменения?
+    .button-box
+        button.dialog-button(@click="clickPostDelete(current_post)") Удалить
+        button.dialog-button(@click="hiddenDialog" ) Отменить
+        //img(src="@/assets/images/btn_zakaz_gaz.png" @click="hiddenDialog")
+

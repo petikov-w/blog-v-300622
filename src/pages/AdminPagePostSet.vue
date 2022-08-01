@@ -1,10 +1,9 @@
 <template lang="pug">
+Dialog(v-model:show="dialogVisible")
+   include ../assets/pug/DIalogDeletePost
 .wrapper
   AdminPanel
-    include ../assets/pug/AdminMenu
-  // строка для отладки
-  //h1 {{message}}
-  // ==================
+   include ../assets/pug/AdminMenu
   .area-posts
     .new-post(v-if="newPost" )
       include ../assets/pug/FormNewPost
@@ -18,7 +17,8 @@
              span.post-title {{ value.title }}
              span.action-box
                p(style="color: green;" @click="clickPostUpdate(value)") &#9998
-               p(style="color: red;" @click="clickPostDelete(value)") &#10006
+               p(style="color: red;" @click="showDialogDelete(value)") &#10006
+               //p(style="color: red;" @click="clickPostDelete(value)") &#10006
 
 </template>
 
@@ -26,17 +26,19 @@
 import AdminPanel from "@/components/AdminPanel";
 import {useStore} from "vuex";
 import {ref, computed} from "vue";
+import Dialog from "@/components/UI/Dialog";
 import PaginationBox from "@/components/PaginationBox";
 export default {
 
   name: "AdminPagePostSet",
-  components: {AdminPanel, PaginationBox},
+  components: {AdminPanel, Dialog, PaginationBox},
 
   setup() {
 
     const store = useStore();
     store.dispatch('setPosts');
-
+    const changeFlag = ref(false);
+    const dialogVisible = ref(false);
     const newPost = ref(true);
     const updatePost = ref(false);
     const current_post = ref([]);
@@ -81,7 +83,6 @@ export default {
       newPost.value = true;
       updatePost.value = false;
     };
-
     const clickPostUpdate = (value) => {
          newPost.value = false;
          updatePost.value = true;
@@ -89,24 +90,21 @@ export default {
       //console.log("==========> ", current_post.value);
     };
     const clickPostDelete = async (value) => {
-         // message.value = "Пост удален";
-         // newPost.value = true;
-         // updatePost.value = false;
          current_post.value = value;
-         console.log('---- 0001 ---->>> ',current_post);
-
-      const res = await fetch(`http://api.blog.loc/posts/${current_post.value.id}`,
-          {
-            method: "DELETE"
-          });
-      if (res.ok === true)  await store.dispatch('setPosts');
-
+         const res = await fetch(`http://api.blog.loc/posts/${current_post.value.id}`,
+              { method: "DELETE" });
+         if (res.ok === true)  await store.dispatch('setPosts');
+         dialogVisible.value=false;
     };
+    const hiddenDialog = () => {dialogVisible.value=false;}
+    const showDialogDelete = (value) => {
+      if (changeFlag) {}
+      dialogVisible.value=true;
+      current_post.value=value;}
+    const handleChange = () => changeFlag.value = true;
 
-
-
-    return { handleSave, handleSaveUpdate, handlePage, clickPostUpdate, clickPostDelete,
-      current_post, newPost, updatePost, message, posts, posts_ps }
+    return { handleSave, handleSaveUpdate, handlePage, clickPostUpdate, clickPostDelete, showDialogDelete, hiddenDialog,
+      handleChange, changeFlag, dialogVisible, current_post, newPost, updatePost, message, posts, posts_ps }
   }
 }
 </script>

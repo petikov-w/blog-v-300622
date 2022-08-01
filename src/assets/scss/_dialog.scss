@@ -1,0 +1,58 @@
+//::placeholder {
+//  text-transform: uppercase;
+//  font-family: $font-OpenSans;
+//  @include font(12px, 400, 16px, #2D2D2D80);
+//}
+
+.delete-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  //input {
+  //  width: 400px;
+  //  height: 50px;
+  //  border-radius: 10px;
+  //  padding: 10px 10px;
+  //  margin: 5px 17px 25px;
+  //  color: #EF5221;
+  //  @media screen and (max-width: $phoneWidth) {
+  //    width: 330px;
+  //  }
+  .header-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 380px;
+    border-bottom: 1px solid #EF5221;
+    @media screen and (max-width: $phoneWidth) {
+      width: 330px;
+    }
+
+    .form-title {
+      //font-family: $font-RussoOne;
+      @include font(14px, 400, 14px, #EF5221);
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+      max-width: 280px;
+      margin: 5px 0;
+    }
+
+    .close-form {
+      @include font(20px, 600, 20px, #EF5221);
+      cursor: pointer;
+    }
+  }
+  .content-box {
+    p {
+      margin-top: 20px;
+    }
+  }
+  .button-box {
+    display: flex;
+    justify-content: space-around;
+    width: 380px;
+  }
+}
+
