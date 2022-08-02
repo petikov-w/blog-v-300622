@@ -1,11 +1,11 @@
 form.delete-form(@submit.prevent="onSubmit")
     .header-box
         .form-title Удаление поста
-        .close-form(@click="hiddenDialog") &#10005
+        .close-form(@click="hiddenDialogDelete") &#10005
     .content-box
         p Выбранный пост будет удален.
     .button-box
         button.dialog-button(@click="clickPostDelete(current_post)") Удалить
-        button.dialog-button(@click="hiddenDialog" ) Отменить
+        button.dialog-button(@click="hiddenDialogDelete" ) Отменить
         //img(src="@/assets/images/btn_zakaz_gaz.png" @click="hiddenDialog")
 

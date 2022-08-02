@@ -21,7 +21,7 @@
 import {useStore} from 'vuex'
 import { computed} from "vue";
 import AdminPanel from "@/components/AdminPanel";
-import {PhoneNumberFormat} from "@/function";
+import {PhoneNumberFormat} from "@/assets/js/function";
 
 export default {
   name: "AdminPageMainSet",

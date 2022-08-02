@@ -17,7 +17,7 @@ import {useStore} from 'vuex'
 // import {useRoute} from "vue-router";
 import {ref, computed} from "vue";
 import PaginationBox from "@/components/PaginationBox";
-import {secWord} from "@/function";
+import {secWord} from "@/assets/js/function";
 
 
 export default {

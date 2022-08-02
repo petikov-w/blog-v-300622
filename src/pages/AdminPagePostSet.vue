@@ -1,6 +1,8 @@
 <template lang="pug">
-Dialog(v-model:show="dialogVisible")
+Dialog(v-model:show="dialogVisibleDelete")
    include ../assets/pug/DialogDeletePost
+Dialog(v-model:show="dialogVisibleUpdate")
+  include ../assets/pug/DIalogUpadatePost
 .wrapper
   AdminPanel
    include ../assets/pug/AdminMenu
@@ -27,6 +29,7 @@ import AdminPanel from "@/components/AdminPanel";
 import {useStore} from "vuex";
 import {ref, computed} from "vue";
 import Dialog from "@/components/UI/Dialog";
+import {dialogVisibleDelete, clickPostDelete, hiddenDialogDelete} from "@/assets/js/dialogDeletePost"
 import PaginationBox from "@/components/PaginationBox";
 export default {
 
@@ -37,8 +40,8 @@ export default {
 
     const store = useStore();
     store.dispatch('setPosts');
-    const changeFlag = ref(false);
-    const dialogVisible = ref(false);
+    const dialogVisibleUpdate = ref(false);
+    // const dialogVisibleDelete = ref(false);
     const newPost = ref(true);
     const updatePost = ref(false);
     const current_post = ref([]);
@@ -82,30 +85,32 @@ export default {
       if (res.ok === true)  await store.dispatch('setPosts');
       newPost.value = true;
       updatePost.value = false;
+      dialogVisibleUpdate.value=false;
     };
     const clickPostUpdate = (value) => {
          newPost.value = false;
          updatePost.value = true;
          current_post.value = value;
-         if (changeFlag.value) alert("привет")
+       //  if (dialogVisibleDelete.value) alert("привет")
       //console.log("==========> ", current_post.value);
     };
-    const clickPostDelete = async (value) => {
-         current_post.value = value;
-         const res = await fetch(`http://api.blog.loc/posts/${current_post.value.id}`,
-              { method: "DELETE" });
-         if (res.ok === true)  await store.dispatch('setPosts');
-         dialogVisible.value=false;
-    };
-    const hiddenDialog = () => {dialogVisible.value=false;}
+    // const clickPostDelete = async (value) => {
+    //      current_post.value = value;
+    //      const res = await fetch(`http://api.blog.loc/posts/${current_post.value.id}`,
+    //           { method: "DELETE" });
+    //      if (res.ok === true)  await store.dispatch('setPosts');
+    //      dialogVisibleDelete.value=false;
+    // };
+    // const hiddenDialogDelete = () => {dialogVisibleDelete.value=false;}
+    const hiddenDialogUpdate = () => {dialogVisibleUpdate.value=false;}
     const showDialogDelete = (value) => {
       // if (changeFlag) {}
-      dialogVisible.value=true;
+      dialogVisibleDelete.value=true;
       current_post.value=value;}
-    const handleChange = () => changeFlag.value = true;
+    const handleChange = () => dialogVisibleUpdate.value = true;
 
-    return { handleSave, handleSaveUpdate, handlePage, clickPostUpdate, clickPostDelete, showDialogDelete, hiddenDialog,
-      handleChange, changeFlag, dialogVisible, current_post, newPost, updatePost, message, posts, posts_ps }
+    return { handleSave, handleSaveUpdate, handlePage, clickPostUpdate, clickPostDelete, showDialogDelete, hiddenDialogDelete,
+      hiddenDialogUpdate, handleChange, dialogVisibleUpdate, dialogVisibleDelete, current_post, newPost, updatePost, message, posts, posts_ps }
   }
 }
 </script>
