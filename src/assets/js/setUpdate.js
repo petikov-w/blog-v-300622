@@ -1,8 +1,8 @@
 import {computed} from "vue";
 import stores from "../store/stores"
-import {PhoneNumberFormat} from "@/assets/js/function";
+import {PhoneNumberFormat} from "./function"
 
-await stores.dispatch('setSettings');
+
 const telefon = computed(() => PhoneNumberFormat(stores.getters.getTelefon));
 const telefon_a = computed(() => stores.getters.getTelefon);
 const email = computed(() => stores.getters.getEmail);
@@ -18,12 +18,10 @@ const handleSaveSet = async() => {
     const res =await fetch('http://api.blog.loc/settings',
         {method: "PATCH", body: JSON.stringify(data)});
     let resData = await res.json();
-    if (resData.status === true) { stores.dispatch('setSettings');}
+    if (resData.status === true) {await stores.dispatch('setSettings');}
     document.getElementById('email').value = "";
     document.getElementById('telefon').value = "";
-
 };
-
 
 export {
     telefon,
