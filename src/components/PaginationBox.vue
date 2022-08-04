@@ -47,7 +47,7 @@ export default {
     const changePage = (page_num) => {
       page.value = page_num;
       pagination_offset.value = (postsPage.value*page.value)-postsPage.value;
-      console.log("----sort----->>>> ", orderSort.value);
+      // console.log("----sort----->>>> ", orderSort.value);
       if(orderSort.value === 1) {
         datset_sort = dataset_in.sort((a, b) => Number(a.id) < Number(b.id) ? 1 : -1);
       } else if (orderSort.value === 2) {

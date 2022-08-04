@@ -1,11 +1,11 @@
 <template lang="pug">
 Dialog(v-model:show="dialogVisibleDelete")
-   include ../assets/pug/DialogDeletePost
+  include ../assets/pug/DialogDeletePost
 Dialog(v-model:show="dialogVisibleUpdate")
   include ../assets/pug/DIalogUpadatePost
 .wrapper
   AdminPanel
-   include ../assets/pug/AdminMenu
+    include ../assets/pug/AdminMenu
   .area-posts
     .new-post(v-if="newPost" )
       include ../assets/pug/FormNewPost
@@ -16,84 +16,89 @@ Dialog(v-model:show="dialogVisibleUpdate")
       PaginationBox(@listPosts="handlePage" :list-main="posts" :order-sort="1" :limit-items-in-page="5"  )
         .list-posts
           .rec-post(v-for="value in posts_ps" :key="value.posts")
-             span.post-title {{ value.title }}
-             span.action-box
-               p(style="color: green;" @click="clickPostUpdate(value)") &#9998
-               p(style="color: red;" @click="showDialogDelete(value)") &#10006
-               //p(style="color: red;" @click="clickPostDelete(value)") &#10006
-
+            span.post-title {{ value.title }}
+            span.action-box
+              p(style="color: green;" @click="clickPostUpdate(value)") &#9998
+              p(style="color: red;" @click="showDialogDelete(value)") &#10006
+              //p(style="color: red;" @click="clickPostDelete(value)") &#10006
+      //button(@click="workPost" type="submit") ОК
+      //h5 {{newPost}}
 </template>
 
 <script>
 import AdminPanel from "@/components/AdminPanel";
 import {useStore} from "vuex";
-import {ref, computed} from "vue";
+import {ref, computed, onMounted, onBeforeUpdate} from "vue";
 import Dialog from "@/components/UI/Dialog";
-import {dialogVisibleDelete, clickPostDelete, hiddenDialogDelete} from "@/assets/js/dialogDeletePost"
-import PaginationBox from "@/components/PaginationBox";
-export default {
+import {handleSave} from "@/assets/js/postCreate";
+import {dialogVisibleDelete, showDialogDelete, clickPostDelete, hiddenDialogDelete} from "@/assets/js/postDelete"
+import {dialogVisibleUpdate, clickPostUpdate, hiddenDialogUpdate, handleSaveUpdate, handleChange} from "@/assets/js/postUpdate";
 
+import PaginationBox from "@/components/PaginationBox";
+import stores from "@/assets/store/stores";
+export default {
   name: "AdminPagePostSet",
   components: {AdminPanel, Dialog, PaginationBox},
-
   setup() {
-
     const store = useStore();
     store.dispatch('setPosts');
-    const dialogVisibleUpdate = ref(false);
+    //const dialogVisibleUpdate = ref(false);
     // const dialogVisibleDelete = ref(false);
-    const newPost = ref(true);
-    const updatePost = ref(false);
-    const current_post = ref([]);
-    const message = ref("");
-    const posts_ps = ref([])    ;
+    //const newPost = ref(true);
+    //const updatePost = ref(false);
+    //const current_post = ref([]);
+    // const message = ref("");
+
+    const newPost = computed(() => stores.getters.getIsNewPost);
+    const updatePost = computed(() => stores.getters.getIsUpdatePost);
+    const current_post = computed(() => stores.getters.getCurrentPost);
+
+
+    const posts_ps = ref([]);
     const posts = computed(() => store.getters.getPosts);
-
     const handlePage = (most) => {posts_ps.value=most;};
-    const handleSave = async() => {
-      const post_title = (document.getElementById('body-title').value.length===0
-                       ? 'Ошибка 1'
-                       : document.getElementById('body-title').value);
-      const post_body = (document.getElementById('body-post').value.length===0
-                       ? 'Ошибка 2'
-                       : document.getElementById('body-post').value);
-      let formData = new FormData();
-      formData.append('title', post_title);
-      formData.append('body', post_body);
-      const res =await fetch('http://api.blog.loc/posts',
-          {method: "POST", body: formData});
-      // let resData = await res.json();
-      // if (resData.status === true) { store.dispatch('setSettings');}
 
-      const data = await res.json();
-      console.log(data);
-      document.getElementById('body-title').value = "";
-      document.getElementById('body-post').value = "";
-      await store.dispatch('setPosts');
-    };
-    const handleSaveUpdate = async() => {
-      // console.log("==========> ", current_post.value.title);
-      const data = {
-         title: current_post.value.title,
-         body: current_post.value.body
-      };
-      const res = await fetch(`http://api.blog.loc/posts/${current_post.value.id}`,
-          {
-            method: "PATCH",
-            body: JSON.stringify(data)
-          });
-      if (res.ok === true)  await store.dispatch('setPosts');
-      newPost.value = true;
-      updatePost.value = false;
-      dialogVisibleUpdate.value=false;
-    };
-    const clickPostUpdate = (value) => {
-         newPost.value = false;
-         updatePost.value = true;
-         current_post.value = value;
-       //  if (dialogVisibleDelete.value) alert("привет")
-      //console.log("==========> ", current_post.value);
-    };
+    // const handleSave = async() => {
+    //   const post_title = (document.getElementById('body-title').value.length===0
+    //       ? 'Ошибка 1'
+    //       : document.getElementById('body-title').value);
+    //   const post_body = (document.getElementById('body-post').value.length===0
+    //       ? 'Ошибка 2'
+    //       : document.getElementById('body-post').value);
+    //   let formData = new FormData();
+    //   formData.append('title', post_title);
+    //   formData.append('body', post_body);
+    //   const res =await fetch('http://api.blog.loc/posts',
+    //       {method: "POST", body: formData});
+    //   // let resData = await res.json();
+    //   // if (resData.status === true) { store.dispatch('setSettings');}
+    //   const data = await res.json();
+    //   console.log(data);
+    //   document.getElementById('body-title').value = "";
+    //   document.getElementById('body-post').value = "";
+    //   await store.dispatch('setPosts');
+    // };
+    // const handleSaveUpdate = async() => {
+    //   // console.log("==========> ", current_post.value.title);
+    //   const data = {
+    //     title: current_post.value.title,
+    //     body: current_post.value.body
+    //   };
+    //   const res = await fetch(`http://api.blog.loc/posts/${current_post.value.id}`,
+    //       {
+    //         method: "PATCH",
+    //         body: JSON.stringify(data)
+    //       });
+    //   if (res.ok === true)  await store.dispatch('setPosts');
+    //   newPost.value = true;
+    //   updatePost.value = false;
+    //   dialogVisibleUpdate.value=false;
+    // };
+    // const clickPostUpdate = (value) => {
+    //   newPost.value = false;
+    //   updatePost.value = true;
+    //   current_post.value = value;
+    // };
     // const clickPostDelete = async (value) => {
     //      current_post.value = value;
     //      const res = await fetch(`http://api.blog.loc/posts/${current_post.value.id}`,
@@ -102,15 +107,14 @@ export default {
     //      dialogVisibleDelete.value=false;
     // };
     // const hiddenDialogDelete = () => {dialogVisibleDelete.value=false;}
-    const hiddenDialogUpdate = () => {dialogVisibleUpdate.value=false;}
-    const showDialogDelete = (value) => {
-      // if (changeFlag) {}
-      dialogVisibleDelete.value=true;
-      current_post.value=value;}
-    const handleChange = () => dialogVisibleUpdate.value = true;
+    // const hiddenDialogUpdate = () => {dialogVisibleUpdate.value=false;}
+    //const handleChange = () => dialogVisibleUpdate.value = true;
+
+    onMounted( store.dispatch('setPosts'));
+    onBeforeUpdate(store.dispatch('setPosts'));
 
     return { handleSave, handleSaveUpdate, handlePage, clickPostUpdate, clickPostDelete, showDialogDelete, hiddenDialogDelete,
-      hiddenDialogUpdate, handleChange, dialogVisibleUpdate, dialogVisibleDelete, current_post, newPost, updatePost, message, posts, posts_ps }
+      hiddenDialogUpdate, handleChange, dialogVisibleUpdate, dialogVisibleDelete, current_post, newPost, updatePost, posts, posts_ps }
   }
 }
 </script>
@@ -118,7 +122,7 @@ export default {
 <style lang="scss" scoped>
 .area-posts {
   display: flex;
-   .list-post {
+  .list-post {
     margin-bottom: 20px;
     width: 550px;
     span.title {
@@ -155,6 +159,4 @@ export default {
     }
   }
 }
-
-
 </style>

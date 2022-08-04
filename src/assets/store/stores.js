@@ -1,4 +1,5 @@
 import {createStore} from "vuex";
+//import {ref} from "vue/dist/vue";
 // import axios from "axios";
 const axios = require('axios').default;
 const api = 'http://api.blog.loc'; // локальный сервер
@@ -6,6 +7,7 @@ const api = 'http://api.blog.loc'; // локальный сервер
 export default createStore({
 //==========================================================================
     state: {
+        logo: require('@/assets/images/logo-1.svg.png'),
         posts: [],
         post: [],
         settings: [],
@@ -13,8 +15,10 @@ export default createStore({
         limit: 3,
         totalPages: 0,
         totalItems: 0,
-        logo: require('@/assets/images/logo-1.svg.png'),
-        loadingStatus: false
+        loadingStatus: false,
+        new_post: true,
+        update_post: false,
+        current_post: []
     },
     getters: {
         getPosts: (state) => state.posts,
@@ -27,7 +31,10 @@ export default createStore({
         getTotalItems : (state) => state.totalItems,
         getPostsPage : (state) => state.limit,
         getCurrentPage : state => state.page,
-        getLoadingStatus: state => state.loadingStatus
+        getLoadingStatus: state => state.loadingStatus,
+        getIsNewPost: state => state.new_post,
+        getIsUpdatePost: state => state.update_post,
+        getCurrentPost: state => state.current_post
     },
     mutations: {
         // setPosts(state, posts) {
@@ -36,7 +43,10 @@ export default createStore({
         setPosts(state, posts) { state.posts = posts },
         setPost(state, post) { state.post = post },
         setSettings(state, settings) {state.settings = settings},
-        setLoadingStatus(state, loadingStatus) {state.loadingStatus = loadingStatus}
+        setLoadingStatus(state, loadingStatus) {state.loadingStatus = loadingStatus},
+        setIsNewPost(state, payload) {state.new_post = payload},
+        setIsUpdatePost(state, payload) {state.update_post = payload},
+        setCurrentPost(state, payload) {state.current_post = payload}
     },
     actions: {
         setPosts : ({commit, state}) => {
@@ -47,8 +57,9 @@ export default createStore({
                       state.totalPages = Math.ceil(responce.data.length / state.limit);
                       })
                   .catch((err) => {console.log("Ошибка загрузки списка постов ===> ", err)})
-                  .finally(()=>{commit('setLoadingStatus',false),
-                                        console.log("СПИСОК ПОСТОВ ==> Oо-оО!!!")})},
+                  .finally(()=>{commit('setLoadingStatus',false);
+                                        // console.log("СПИСОК ПОСТОВ ==> Oо-оО!!!")
+                  })},
 
         setPost : ({commit}, id) => {
             commit('setLoadingStatus',true);
@@ -65,8 +76,18 @@ export default createStore({
                 .then(responce => {commit('setSettings', responce.data);
                 commit('setLoadingStatus',false)})
                 .catch((err) => {console.log("Ошибка загрузки списка настроек ===> ", err)})
-                .finally(()=>{commit('setLoadingStatus',false),
-                    console.log("СПИСОК НАСТРОЕК ==> Oо-оО!!!")})
+                .finally(()=>{commit('setLoadingStatus',false);
+                    // console.log("СПИСОК НАСТРОЕК ==> Oо-оО!!!")
+                })},
+
+        setIsNewPost : ({commit}, payload) => {
+            commit('setIsNewPost', payload);
+        },
+        setIsUpdatePost : ({commit}, payload) => {
+            commit('setIsUpdatePost', payload);
+        },
+        setCurrentPost : ({commit}, payload) => {
+            commit('setCurrentPost', payload);
         }
     }
 //===========================================================================

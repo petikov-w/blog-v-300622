@@ -29,6 +29,7 @@ export default {
     const posts = computed(() => store.getters.getPosts);
     const posts_ps = ref([]);
     const handlePage = ((most) => {posts_ps.value=most;})
+
     return {
       secWord,
       handlePage,

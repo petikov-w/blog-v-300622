@@ -1,8 +1,18 @@
 form.note-form(@submit.prevent="onSubmit") Изменение поста
-    h4(v-if="changeFlag") Пост был изменен
+    //h4(v-if="changeFlag") Пост был изменен
     .input
-        input( required name="body-title" :onchange="handleChange" v-model="current_post.title" id="body-title" placeholder="Название поста")
+        input( required
+               name="body-title"
+               :onchange="handleChange"
+               v-model="current_post.title"
+               id="body-title"
+               placeholder="Название поста")
     .input
-        textarea(required name="body-post" :onchange="handleChange" v-model="current_post.body" id="body-post" placeholder="Содержимое поста")
+        textarea(required
+                 name="body-post"
+                 :onchange="handleChange"
+                 v-model="current_post.body"
+                 id="body-post"
+                 placeholder="Содержимое поста")
 
     button(@click="handleSaveUpdate()" type="submit") Изменить
