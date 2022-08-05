@@ -23,11 +23,11 @@ const routers = createRouter(
                 }
             },
             {
-                path: "/:post",
+                path: "/post/:post",
                 name: "post",
                 component: ItemPost,
                 meta: {
-                    title: null
+                    title: ""
                 }
             },
             {
