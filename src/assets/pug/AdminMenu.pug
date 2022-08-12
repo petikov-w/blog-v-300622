@@ -1,5 +1,7 @@
 ul.admin-nav
-    li
+    li(@click="handleClickMenu")
         router-link(:to="{ name: 'admin-main'}" class="link-admin") Основные настройки
-    li
-        router-link(:to="{ name: 'admin-post'}" class="link-admin") Посты
+    li(@click="handleClickMenu")
+        router-link(:to="{ name: 'admin-posts-list'}" class="link-admin") Записи
+    li(@click="handleClickMenu")
+        router-link(:to="{ name: 'admin-post-new'}" class="link-admin") Новая запись

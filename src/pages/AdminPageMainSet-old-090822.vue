@@ -8,15 +8,13 @@
       include ../assets/pug/AdminMenu
     .right-box
       include ../assets/pug/FormUpdateSettings
-
+      
 </template>
 
 <script>
 
-import {useStore} from 'vuex';
-import {useRoute} from "vue-router";
+import {useStore} from 'vuex'
 import AdminPanel from "@/components/AdminPanel";
-import {computed} from "vue";
 import {handleSaveSet, telefon, telefon_a, email} from "@/assets/js/setUpdate";
 export default {
   name: "AdminPageMainSet",
@@ -24,11 +22,7 @@ export default {
 
   setup() {
     const store = useStore();
-    const route = useRoute();
     store.dispatch('setSettings');
-
-    const path = computed(() =>route.path)
-    console.log("====>> ", path.value);
 
     return {telefon, telefon_a, email, handleSaveSet }
   }

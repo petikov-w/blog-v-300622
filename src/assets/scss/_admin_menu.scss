@@ -1,5 +1,13 @@
 .admin-nav {
   display: flex;
+  flex-direction: column;
   justify-content: flex-end;
-  width: 50%;
+  width: 80%;
+  margin-left: 40px;
+  margin-top: 40px;
+  li {
+    margin-bottom: 20px;
+  }
+
+
 }

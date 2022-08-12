@@ -41,18 +41,19 @@ export default {
   setup() {
     const store = useStore();
     store.dispatch('setPosts');
-    const newPost = computed(() => stores.getters.getIsNewPost);
-    const updatePost = computed(() => stores.getters.getIsUpdatePost);
+    // const newPost = computed(() => stores.getters.getIsNewPost);
+    // const updatePost = computed(() => stores.getters.getIsUpdatePost);
     const current_post = computed(() => stores.getters.getCurrentPost);
     const posts_ps = ref([]);
     const posts = computed(() => store.getters.getPosts);
     const handlePage = (most) => {posts_ps.value=most;};
 
+
     onMounted( store.dispatch('setPosts'));
     onBeforeUpdate(store.dispatch('setPosts'));
 
     return { handleSave, handleSaveUpdate, handlePage, clickPostUpdate, clickPostDelete, showDialogDelete, hiddenDialogDelete,
-      hiddenDialogUpdate, handleChange, dialogVisibleUpdate, dialogVisibleDelete, current_post, newPost, updatePost, posts, posts_ps }
+      hiddenDialogUpdate, handleChange, dialogVisibleUpdate, dialogVisibleDelete, current_post,  posts, posts_ps }
   }
 }
 </script>
@@ -60,41 +61,5 @@ export default {
 <style lang="scss" scoped>
 .area-posts {
   display: flex;
-  .list-post {
-    margin-bottom: 20px;
-    width: 550px;
-    span.title {
-      font-family: $font-RobotoSlab;
-      @include font(22px, 600, 26px, #4468e0);
-      margin-bottom: 20px!important;
-    }
-    .list-posts {
-      display: flex;
-      flex-direction: column;
-      .rec-post {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border: 1px solid blue;
-        border-radius: 8px;
-        margin: 10px 0;
-        padding: 10px 15px;
-        width: auto;
-        .post-title {
-          color: #560b0b;
-          font-weight: 500;
-        }
-        .action-box {
-          display: flex;
-          width: 50px;
-          justify-content: space-between;
-          p {
-            font-size: 20px;
-            cursor: pointer;
-          }
-        }
-      }
-    }
-  }
 }
 </style>

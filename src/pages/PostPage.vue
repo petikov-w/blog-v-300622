@@ -12,26 +12,21 @@
 <script>
 import {useStore} from 'vuex'
 import {useRoute} from 'vue-router';
-import {ref, computed} from "vue";
+import {computed} from "vue";
+// import {ref, computed} from "vue";
 
 export default {
   name: "itemPost",
   setup(){
 //------------------------------------
-    const site = "Блог";
+
     const store = useStore();
     const route = useRoute();
     const api = 'http://api.blog.loc'; // локальный сервер
-// const api = 'https://api.blog.kroxdev.ru'; // хостинг
-    const id_post = route.fullPath.split('/')[2];
-
-    // console.log("---->  ", route.fullPath, "======>  ", id_post);
-    let post = ref("");
-    store.dispatch('setPost', id_post);
-    post = computed(() => store.getters.getPost);
-    console.log("---->  ", post.value);
+    // const api = 'https://api.blog.kroxdev.ru'; // хостинг
+    store.dispatch('setPost', route.params.post);
+    const post = computed(() => store.getters.getPost);
     // Состояние загрузки
-    document.title = `${site} - ${post.value.title}`;
     const loadingStatus = computed(() => store.getters.getLoadingStatus);
 
 //------------------------------------

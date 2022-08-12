@@ -13,6 +13,12 @@ button{
     color: #EF6D00;
     border: 1px solid #EF6D00;
   }
+  &[disabled] {
+    color: #d2d5db;
+    background: #6c7589;
+    cursor: not-allowed;
+    border-color: #d2d5db;
+  }
 }
 .dialog-button {
   margin-top: 20px!important;

@@ -16,9 +16,10 @@ export default createStore({
         totalPages: 0,
         totalItems: 0,
         loadingStatus: false,
-        new_post: true,
+        list_post: true,
         update_post: false,
-        current_post: []
+        current_post: [],
+        current_route: ""
     },
     getters: {
         getPosts: (state) => state.posts,
@@ -32,21 +33,20 @@ export default createStore({
         getPostsPage : (state) => state.limit,
         getCurrentPage : state => state.page,
         getLoadingStatus: state => state.loadingStatus,
-        getIsNewPost: state => state.new_post,
+        getIsListPosts: state => state.list_post,
         getIsUpdatePost: state => state.update_post,
-        getCurrentPost: state => state.current_post
+        getCurrentPost: state => state.current_post,
+        getCurrentRoute: state => state.current_route
     },
     mutations: {
-        // setPosts(state, posts) {
-        //     posts.sort((a, b) => Number(a.id) < Number(b.id) ? 1 : -1)
-        //     state.posts = posts },
         setPosts(state, posts) { state.posts = posts },
         setPost(state, post) { state.post = post },
         setSettings(state, settings) {state.settings = settings},
         setLoadingStatus(state, loadingStatus) {state.loadingStatus = loadingStatus},
-        setIsNewPost(state, payload) {state.new_post = payload},
+        setIsListPosts(state, payload) {state.list_post = payload},
         setIsUpdatePost(state, payload) {state.update_post = payload},
-        setCurrentPost(state, payload) {state.current_post = payload}
+        setCurrentPost(state, payload) {state.current_post = payload},
+        setCurrentRoute(state, payload) {state.current_route = payload}
     },
     actions: {
         setPosts : ({commit, state}) => {
@@ -80,14 +80,17 @@ export default createStore({
                     // console.log("СПИСОК НАСТРОЕК ==> Oо-оО!!!")
                 })},
 
-        setIsNewPost : ({commit}, payload) => {
-            commit('setIsNewPost', payload);
+        setIsListPosts : ({commit}, payload) => {
+            commit('setIsListPosts', payload);
         },
         setIsUpdatePost : ({commit}, payload) => {
             commit('setIsUpdatePost', payload);
         },
         setCurrentPost : ({commit}, payload) => {
             commit('setCurrentPost', payload);
+        },
+        setCurrentRoute : ({commit}, payload) => {
+            commit('setCurrentRoute', payload);
         }
     }
 //===========================================================================

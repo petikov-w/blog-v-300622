@@ -1,18 +1,7 @@
-form.note-form(@submit.prevent="onSubmit") Изменение поста
-    //h4(v-if="changeFlag") Пост был изменен
-    .input
-        input( required
-               name="body-title"
-               :onchange="handleChange"
-               v-model="current_post.title"
-               id="body-title"
-               placeholder="Название поста")
-    .input
-        textarea(required
-                 name="body-post"
-                 :onchange="handleChange"
-                 v-model="current_post.body"
-                 id="body-post"
-                 placeholder="Содержимое поста")
-
-    button(@click="handleSaveUpdate()" type="submit") Изменить
+form.note-form(v-if="current_route === 'admin-post-update'" @submit.prevent="onSubmit") Изменение поста
+    input( required name="body-title" v-model="current_post.title" :onchange="handleChange"
+           id="body-title" placeholder="Название поста")
+    textarea(required name="body-post" v-model="current_post.body" :onchange="handleChange"
+             id="body-post" placeholder="Содержимое поста")
+    button(v-if="dialogVisibleUpdate" @click="handleSaveUpdate()" type="submit") Изменить
+    button(v-if="!dialogVisibleUpdate" disabled type="submit") Изменить

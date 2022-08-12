@@ -5,10 +5,12 @@ const routerHistory = createWebHistory();
 import HomePage from "@/pages/HomePage";
 import notFoundPage from "@/pages/NotFoundPage";
 import ItemPost from "@/pages/PostPage"
-import AdminPageMainSet from "@/pages/AdminPageMainSet";
-import AdminPagePostSet from "@/pages/AdminPagePostSet";
+// import AdminPageMainSet from "@/pages/AdminPageMainSet";
+// import AdminPagePostSet from "@/pages/AdminPagePostSet";
+import AdminPanel from "@/components/AdminPanel";
 
-const site = "Блог";
+ // import {useStore} from "vuex";
+
 
 const routers = createRouter(
     {
@@ -31,17 +33,44 @@ const routers = createRouter(
                 }
             },
             {
+                path: "/admin",
+                name: "admin",
+                // component: AdminPageMainSet,
+                component: AdminPanel,
+                meta: {
+                    title: "Панель администратора"
+                }
+            },
+            {
                 path: "/admin/main",
                 name: "admin-main",
-                component: AdminPageMainSet,
+                // component: AdminPageMainSet,
+                component: AdminPanel,
                 meta: {
                     title: "Панель администратора"
                 }
             },
             {
                 path: "/admin/posts",
-                name: "admin-post",
-                component: AdminPagePostSet,
+                name: "admin-posts-list",
+                //name: "admin-new-post",
+                component: AdminPanel,
+                meta: {
+                    title: "Панель администратора"
+                }
+            },
+            {
+                path: "/admin/posts/new",
+                name: "admin-post-new",
+                component: AdminPanel,
+                meta: {
+                    title: "Панель администратора"
+                }
+            },
+            {
+                path: "/admin/posts/update",
+                name: "admin-post-update",
+                component: AdminPanel,
                 meta: {
                     title: "Панель администратора"
                 }
@@ -57,10 +86,13 @@ const routers = createRouter(
         ]
     }
 )
+ // const store = useStore();
+
 
 routers.beforeEach((to,from, next) => {
-    // document.title = `${site.title} - ${to.meta.title}`;
-    document.title = `${site} - ${to.meta.title}`;
+    if (`${to.name}`=== "post") document.title = `${process.env.VUE_APP_TITLE} - ${to.params.title}`
+    else document.title = `${process.env.VUE_APP_TITLE} - ${to.meta.title}`;
+    // store.dispatch('setCurrentRoute', `${to.name}`);
     next();
 })
 

@@ -1,0 +1,9 @@
+.list-post(v-if="current_route === 'admin-posts-list'")
+    span.title Список постов
+    PaginationBox(@listPosts="handlePage" :list-main="posts" :order-sort="1" :limit-items-in-page="5"  )
+        .list-posts
+            .rec-post(v-for="value in posts_ps" :key="value.posts")
+                span.post-title {{ value.title }}
+                span.action-box
+                    p(style="color: green;" @click="clickPostUpdate(value)") &#9998
+                    p(style="color: red;" @click="showDialogDelete(value)") &#10006

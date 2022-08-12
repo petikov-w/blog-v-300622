@@ -10,12 +10,14 @@
           .content-section
             span.title {{ value.title }}
             span.body {{ secWord(value.body, 12) }}
-            router-link(:to='`/post/${value.id}`'  class="link-go") Подробнее...
+            router-link(:to="{name: 'post', params: {post: `${value.id}`, title: `${value.title}` }}"  class="link-go") Подробнее...
+
+            //router-link(:to='`/post/${value.id}`'  class="link-go") Подробнее...
 
 </template>
 
 <script>
-import {useStore} from 'vuex'
+import {useStore} from 'vuex';
 // import {useRoute} from "vue-router";
 import {ref, computed} from "vue";
 import PaginationBox from "@/components/PaginationBox";

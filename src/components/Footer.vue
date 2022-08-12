@@ -1,9 +1,7 @@
 <template lang="pug">
 footer.footer
   .footer-wrapper
-    router-link(v-if="!isHome" :to="{ name: 'home'}" class="link-go") Вернуться на главную
-    router-link(v-if="!isAdmin && !isPost" :to="{ name: 'admin-main'}" class="link-go-admin") Панель администратора
-
+    router-link(v-if="!isHome && !isAdmin" :to="{ name: 'home'}" class="link-go") Вернуться на главную
 </template>
 
 <script>
@@ -14,8 +12,11 @@ export default {
   name: 'Footer-m',
   setup() {
     const route = useRoute();
-    const isAdmin = computed(() => route.name==='admin-main'|| route.name==='admin-post'
-                                         ? true : false);
+    const isAdmin = computed(() => route.name === 'admin' ||
+        route.name === 'admin-main' ||
+        route.name === 'admin-posts-list' ||
+        route.name === 'admin-post-update' ||
+        route.name === 'admin-post-new');
     const isHome = computed(() => route.name==='home' ? true : false);
     const isPost = computed(() => route.name==='post' ? true : false);
     return { isAdmin, isHome, isPost}
