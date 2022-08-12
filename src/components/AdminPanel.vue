@@ -19,6 +19,7 @@ import {useRoute} from "vue-router";
 import {useStore} from "vuex";
 import { ref, computed, onBeforeUpdate, onMounted} from "vue";
 import {email, telefon, telefon_a, handleSaveSet} from "@/assets/js/setUpdate";
+import {handleSaveNew} from "@/assets/js/postCreate";
 import {dialogVisibleUpdate, hiddenDialogUpdate, handleSaveUpdate, clickPostUpdate,
   handleChange} from "@/assets/js/postUpdate";
 import PaginationBox from "@/components/PaginationBox";
@@ -52,7 +53,8 @@ export default {
     onBeforeUpdate(stores.dispatch('setPosts'));
 
     return {handleClickMenu, handleSaveSet, handlePage,
-      dialogVisibleUpdate, clickPostUpdate, hiddenDialogUpdate, handleSaveUpdate, current_post,
+      dialogVisibleUpdate, clickPostUpdate, hiddenDialogUpdate,
+      handleSaveUpdate, handleSaveNew, current_post,
       handleChange, posts_ps, posts, current_route, telefon, telefon_a, email, }
   }
 }
