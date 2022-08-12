@@ -1,4 +1,6 @@
 <template lang="pug">
+Dialog(v-model:show="dialogVisibleDelete")
+  include ../assets/pug/DialogDeletePost
 .admin-body
   .sidebar-left
     .sidebar-top-box
@@ -18,8 +20,10 @@
 import {useRoute} from "vue-router";
 import {useStore} from "vuex";
 import { ref, computed, onBeforeUpdate, onMounted} from "vue";
+import Dialog from "@/components/UI/Dialog";
 import {email, telefon, telefon_a, handleSaveSet} from "@/assets/js/setUpdate";
 import {handleSaveNew} from "@/assets/js/postCreate";
+import {dialogVisibleDelete, clickPostDelete, showDialogDelete, hiddenDialogDelete} from "@/assets/js/postDelete"
 import {dialogVisibleUpdate, hiddenDialogUpdate, handleSaveUpdate, clickPostUpdate,
   handleChange} from "@/assets/js/postUpdate";
 import PaginationBox from "@/components/PaginationBox";
@@ -28,7 +32,7 @@ import PaginationBox from "@/components/PaginationBox";
 
 export default {
   name: "AdminPanel",
-  components: {PaginationBox},
+  components: {Dialog, PaginationBox},
   setup() {
     const route = useRoute();
     // const router = useRouter();
@@ -53,9 +57,9 @@ export default {
     onBeforeUpdate(stores.dispatch('setPosts'));
 
     return {handleClickMenu, handleSaveSet, handlePage,
-      dialogVisibleUpdate, clickPostUpdate, hiddenDialogUpdate,
-      handleSaveUpdate, handleSaveNew, current_post,
-      handleChange, posts_ps, posts, current_route, telefon, telefon_a, email, }
+      dialogVisibleUpdate, dialogVisibleDelete, clickPostUpdate, hiddenDialogUpdate,
+      handleSaveUpdate, handleSaveNew, handleChange, clickPostDelete, showDialogDelete,
+      hiddenDialogDelete, current_post, posts_ps, posts, current_route, telefon, telefon_a, email, }
   }
 }
 </script>

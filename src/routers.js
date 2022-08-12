@@ -76,6 +76,14 @@ const routers = createRouter(
                 }
             },
             {
+                path: "/admin/media",
+                name: "admin-media",
+                component: AdminPanel,
+                meta: {
+                    title: "Панель администратора"
+                }
+            },
+            {
                 path: "/:CatchAll(.*)",
                 name: "404",
                 component: notFoundPage,

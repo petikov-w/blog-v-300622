@@ -8,11 +8,14 @@ const handleSaveNew = async() => {
     const post_body = (document.getElementById('body-post').value.length===0
         ? 'Ошибка 2'
         : document.getElementById('body-post').value);
-    console.log("--1--> ", document.getElementById('body-title').value)
+
+
     let formData = new FormData();
     formData.append('title', post_title);
     formData.append('body', post_body);
-    console.log("----> ", formData);
+    formData.append('image', "");
+
+
     const res =await fetch('http://api.blog.loc/posts',{method: "POST", body: formData});
     if (res.ok) { await stores.dispatch('setPosts') }
     document.getElementById('body-title').value = "";
