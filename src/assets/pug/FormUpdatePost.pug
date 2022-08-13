@@ -3,5 +3,6 @@ form.note-form(v-if="current_route === 'admin-post-update'" @submit.prevent="onS
            id="body-title" placeholder="Название поста")
     textarea(required name="body-post" v-model="current_post.body" :onchange="handleChange"
              id="body-post" placeholder="Содержимое поста")
+    img.banner(:src="`${api}${current_post.image}`" width="180" style="margin-top: 10px; border-radius: 10px" logo="pic")
     button(v-if="dialogVisibleUpdate" @click="handleSaveUpdate()" type="submit") Изменить
     button(v-if="!dialogVisibleUpdate" disabled type="submit") Изменить

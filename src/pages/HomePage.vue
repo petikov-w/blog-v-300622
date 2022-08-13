@@ -3,13 +3,13 @@
   .preloader
 .wrapper
   .content-box
-    PaginationBox(@listPosts="handlePage" :list-main="posts" :order-sort="1" :limit-items-in-page="3"  )
+    PaginationBox(@listPosts="handlePage" :list-main="posts" :order-sort="1" :limit-items-in-page="4"  )
       .card-box
         .card(v-for="value in posts_ps" :key="value.id")
           img.banner(:src="`${api}${value.image}`" logo="pic")
           .content-section
-            span.title {{ value.title }}
-            span.body {{ secWord(value.body, 12) }}
+            span.title(style="font-size: 18px") {{ value.title }}
+            //span.body {{ secWord(value.body, 12) }}
             router-link(:to="{name: 'post', params: {post: `${value.id}`, title: `${value.title}` }}"  class="link-go") Подробнее...
 
             //router-link(:to='`/post/${value.id}`'  class="link-go") Подробнее...
@@ -31,12 +31,10 @@ export default {
   setup(){
     const store = useStore();
     store.dispatch('setPosts');
-    const api = 'http://api.blog.loc'; // локальный сервер
-// const api = 'https://api.blog.kroxdev.ru'; // хостинг
+    const api = computed(() => process.env.VUE_APP_API);
     const posts = computed(() => store.getters.getPosts);
     const posts_ps = ref([]);
     const handlePage = ((most) => {posts_ps.value=most;});
-    // onUnmounted(()=>stores.dispatch('setCurrentPost', value));
 
     return {
       secWord,

@@ -11,8 +11,9 @@ Dialog(v-model:show="dialogVisibleDelete")
   .right-box
     include ../assets/pug/FormUpdateSettings
     include ../assets/pug/FormNewPost
-    include ../assets/pug/ListPosts
     include ../assets/pug/FormUpdatePost
+    include ../assets/pug/ListPosts
+    include ../assets/pug/ListMedia
 </template>
 
 <script>
@@ -41,7 +42,9 @@ export default {
     // store.dispatch('setSettings');
     const current_route = computed(() => stores.getters.getCurrentRoute);
     const posts = computed(() => stores.getters.getPosts);
+    const mediaList = computed(() => stores.getters.getMediaList);
     const current_post = computed(() => stores.getters.getCurrentPost);
+    const api = computed(() => process.env.VUE_APP_API);
     const posts_ps = ref([]);
     // const isListPosts = computed(() => stores.getters.getIsListPosts);
     // const isUpdatePost = computed(() => stores.getters.getIsUpdatePost);
@@ -53,13 +56,14 @@ export default {
       // console.log("==== 00 ===>> ",current_route.value)
     }
 
-    onMounted( stores.dispatch('setPosts'));
-    onBeforeUpdate(stores.dispatch('setPosts'));
+    onMounted( stores.dispatch('setPosts'), stores.dispatch('setMediaList'));
+    onBeforeUpdate(stores.dispatch('setPosts'), stores.dispatch('setMediaList'));
 
     return {handleClickMenu, handleSaveSet, handlePage,
       dialogVisibleUpdate, dialogVisibleDelete, clickPostUpdate, hiddenDialogUpdate,
       handleSaveUpdate, handleSaveNew, handleChange, clickPostDelete, showDialogDelete,
-      hiddenDialogDelete, current_post, posts_ps, posts, current_route, telefon, telefon_a, email, }
+      hiddenDialogDelete, api, current_post, posts_ps, posts, current_route, mediaList,
+      telefon, telefon_a, email, }
   }
 }
 </script>

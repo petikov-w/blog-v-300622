@@ -11,18 +11,20 @@ export default createStore({
         posts: [],
         post: [],
         settings: [],
+        mediaList: [],
         page: 1,
         limit: 3,
         totalPages: 0,
         totalItems: 0,
         loadingStatus: false,
-        list_post: true,
-        update_post: false,
+        // list_post: true,
+        // update_post: false,
         current_post: [],
         current_route: ""
     },
     getters: {
         getPosts: (state) => state.posts,
+        getMediaList: (state) => state.mediaList,
         getPost: (state) => state.post,
         getTelefon: (state) => state.settings.telefon,
         getEmail: (state) => state.settings.mail,
@@ -33,8 +35,8 @@ export default createStore({
         getPostsPage : (state) => state.limit,
         getCurrentPage : state => state.page,
         getLoadingStatus: state => state.loadingStatus,
-        getIsListPosts: state => state.list_post,
-        getIsUpdatePost: state => state.update_post,
+        // getIsListPosts: state => state.list_post,
+        // getIsUpdatePost: state => state.update_post,
         getCurrentPost: state => state.current_post,
         getCurrentRoute: state => state.current_route
     },
@@ -42,11 +44,13 @@ export default createStore({
         setPosts(state, posts) { state.posts = posts },
         setPost(state, post) { state.post = post },
         setSettings(state, settings) {state.settings = settings},
+        setMediaList(state, payload) {state.mediaList = payload},
         setLoadingStatus(state, loadingStatus) {state.loadingStatus = loadingStatus},
-        setIsListPosts(state, payload) {state.list_post = payload},
-        setIsUpdatePost(state, payload) {state.update_post = payload},
+        // setIsListPosts(state, payload) {state.list_post = payload},
+        // setIsUpdatePost(state, payload) {state.update_post = payload},
         setCurrentPost(state, payload) {state.current_post = payload},
         setCurrentRoute(state, payload) {state.current_route = payload}
+
     },
     actions: {
         setPosts : ({commit, state}) => {
@@ -80,12 +84,23 @@ export default createStore({
                     // console.log("СПИСОК НАСТРОЕК ==> Oо-оО!!!")
                 })},
 
-        setIsListPosts : ({commit}, payload) => {
-            commit('setIsListPosts', payload);
-        },
-        setIsUpdatePost : ({commit}, payload) => {
-            commit('setIsUpdatePost', payload);
-        },
+        setMediaList : ({commit}) => {
+            commit('setLoadingStatus',true);
+            axios.get(`${api}/media`)
+                .then(responce => {commit('setMediaList', responce.data);
+                    commit('setLoadingStatus',false)})
+                .catch((err) => {console.log("Ошибка загрузки списка медиа ===> ", err)})
+                .finally(()=>{commit('setLoadingStatus',false);
+                    console.log("СПИСОК МЕДИА ==> Oо-оО!!!")
+                })},
+
+
+        // setIsListPosts : ({commit}, payload) => {
+        //     commit('setIsListPosts', payload);
+        // },
+        // setIsUpdatePost : ({commit}, payload) => {
+        //     commit('setIsUpdatePost', payload);
+        // },
         setCurrentPost : ({commit}, payload) => {
             commit('setCurrentPost', payload);
         },

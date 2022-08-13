@@ -1,9 +1,9 @@
 <template lang="pug">
 slot
-paginate(
+paginate( v-if="totalPages > 1"
   v-model="page"
   :page-count="totalPages"
-  :page-range="2"
+  :page-range="3"
   :click-handler="changePage"
   :prev-text="'&#10140'"
   :prev-class="'arrow-prev'"

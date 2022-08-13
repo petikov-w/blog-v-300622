@@ -1,0 +1,10 @@
+.list-post(v-if="current_route === 'admin-media'")
+    span.title Список медиаконтента
+    PaginationBox(@listPosts="handlePage" :list-main="mediaList" :order-sort="1" :limit-items-in-page="3"  )
+        .list-posts
+            .rec-post(v-for="value in posts_ps" :key="value.mediaList")
+                .image-box
+                    img.banner(:src="`${api}${value.image}`" width="180" logo="pic")
+                    span.post-title(style="padding-left:20px;") {{ value.image.split("/")[2] }}
+                span.action-box
+                    p(style="color: red; margin-left:25px" @click="") &#10006

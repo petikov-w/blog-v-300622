@@ -16,6 +16,7 @@ export default {
         route.name === 'admin-main' ||
         route.name === 'admin-posts-list' ||
         route.name === 'admin-post-update' ||
+        route.name === 'admin-media' ||
         route.name === 'admin-post-new');
     const isHome = computed(() => route.name==='home' ? true : false);
     const isPost = computed(() => route.name==='post' ? true : false);

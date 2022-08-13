@@ -1,9 +1,14 @@
 .link-go {
   color: #4468e0;
+  font-size: 14px;
+  font-weight: 500;
+
   &:hover {
     width: max-content;
-    border-bottom: 1px solid #4468e0;
-    padding-bottom: 3px;
+    border-bottom: 2px solid #4468e0;
+    padding-bottom: 2px;
+    //text-underline-position: under;
+
   }
 }
 
